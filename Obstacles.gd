@@ -3,27 +3,31 @@ extends ModularLocation
 var lanes: int = 0
 var move_speed = 400.0 # Speed of movement downwards
 var current_lane = 0
-var start_position = Vector2.ZERO
-
+@onready var enabled = false
 # Called when the node enters the scene tree for the first time
 func _ready():
-	lanes = grid_size.x
+	call_deferred("do_setup")
+
+
+func do_setup():
+	lanes = grid_size[0]
 	# Choose a random lane and set the initial position
 	current_lane = randi() % lanes +1
-	grid_pos.x = current_lane
+	grid_pos[0] = current_lane
 	handle_position()
-	start_position = Vector2(real_pos.x, -200) # Start position off-screen
-	position = start_position
+	position = Vector2(real_pos.x, -200) 
+
+
+func move_object(delta):
+	position.y += move_speed * delta
+	if position.y > screen_size[1] + 200:
+		enabled = false
+		do_setup()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
-	# Move the obstacle downwards
-	position.y += move_speed * delta
+	# Smoothly interpolate between the current position and the real position
+	#position = lerp(position, real_pos, 5 * delta)
+	if enabled:
+		move_object(delta)
 	
-	# Optionally, reset the position when it goes off-screen
-	if position.y > get_viewport().size.y:
-		current_lane = randi() % lanes +1
-		grid_pos.x = current_lane
-		handle_position()
-		position.x = real_pos.x
-		position.y = -200

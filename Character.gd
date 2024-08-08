@@ -12,13 +12,13 @@ func _ready():
 # Handle input events
 func _input(event):
 	if event.is_action_pressed("ui_right"):
-		grid_pos.x += 1
+		grid_pos[0] += 1
 	elif event.is_action_pressed("ui_left"):
-		grid_pos.x -= 1
+		grid_pos[0] -= 1
 	elif event.is_action_pressed("ui_up"):
-		grid_pos.y -= 1
+		grid_pos[1] -= 1
 	elif event.is_action_pressed("ui_down"):
-		grid_pos.y += 1
+		grid_pos[1] += 1
 	
 	handle_position()
 	
