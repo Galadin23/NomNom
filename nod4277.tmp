@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxanotr24wrf6"]
+
+[ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
+[ext_resource type="Script" path="res://Watchman.gd" id="1_rvpur"]
+[ext_resource type="Script" path="res://Enemy.gd" id="2_nb4u6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_tytxx"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_3vm0j"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_hb68m"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_niupf"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_1qtxl"]
+[ext_resource type="Script" path="res://Character.gd" id="9_ra30x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cewr4"]
+radius = 259.372
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b80x0"]
+radius = 109.68
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nkgu8"]
+size = Vector2(118, 120)
+
+[node name="Main" type="Node2D"]
+
+[node name="Watchman" type="Node2D" parent="."]
+visible = false
+script = ExtResource("1_rvpur")
+
+[node name="Icon" type="Sprite2D" parent="Watchman"]
+position = Vector2(-2.99994, 0.00012207)
+scale = Vector2(1.64844, 1.64844)
+texture = ExtResource("1_18wkk")
+
+[node name="Area2D" type="Area2D" parent="Watchman"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Watchman/Area2D"]
+shape = SubResource("CircleShape2D_cewr4")
+
+[node name="StateChart" type="Node" parent="Watchman"]
+script = ExtResource("3_tytxx")
+
+[node name="Root" type="Node" parent="Watchman/StateChart"]
+script = ExtResource("4_3vm0j")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="Watchman/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To Observing" type="Node" parent="Watchman/StateChart/Root/Idle"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Observing")
+event = &"enemy_entered"
+delay_in_seconds = "0.0"
+
+[node name="Observing" type="Node" parent="Watchman/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="Enemy" type="Node2D" parent="."]
+visible = false
+position = Vector2(-160, -328)
+scale = Vector2(0.641421, 0.641421)
+script = ExtResource("2_nb4u6")
+
+[node name="Icon" type="Sprite2D" parent="Enemy"]
+position = Vector2(-2.99994, 0.00012207)
+scale = Vector2(1.64844, 1.64844)
+texture = ExtResource("1_18wkk")
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+scale = Vector2(1.28422, 1.27773)
+shape = SubResource("CircleShape2D_b80x0")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("8_1qtxl")]
+offset_left = -537.0
+offset_top = -23.0
+offset_right = 141.0
+offset_bottom = 610.0
+initial_node_to_watch = NodePath("../Watchman/StateChart")
+
+[node name="Character" type="Node2D" parent="."]
+script = ExtResource("9_ra30x")
+
+[node name="Area2D" type="Area2D" parent="Character"]
+
+[node name="Icon" type="Sprite2D" parent="Character/Area2D"]
+position = Vector2(2, -2)
+texture = ExtResource("1_18wkk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/Area2D"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_nkgu8")
+
+[connection signal="area_entered" from="Watchman/Area2D" to="Watchman" method="_on_area_2d_area_entered"]
