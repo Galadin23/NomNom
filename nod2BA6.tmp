@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=13 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Watchman.gd" id="1_rvpur"]
-[ext_resource type="Script" path="res://main.gd" id="1_xkq87"]
 [ext_resource type="Script" path="res://Enemy.gd" id="2_nb4u6"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_tytxx"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_3vm0j"]
@@ -10,7 +9,6 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_niupf"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_1qtxl"]
 [ext_resource type="Script" path="res://Character.gd" id="9_ra30x"]
-[ext_resource type="PackedScene" uid="uid://bard0614bs1ui" path="res://Obstacles/obstacles.tscn" id="10_6u8qc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cewr4"]
 radius = 259.372
@@ -22,8 +20,6 @@ radius = 109.68
 size = Vector2(118, 120)
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_xkq87")
-obstacle_scene = ExtResource("10_6u8qc")
 
 [node name="Watchman" type="Node2D" parent="."]
 visible = false
@@ -95,8 +91,4 @@ texture = ExtResource("1_18wkk")
 position = Vector2(1, 0)
 shape = SubResource("RectangleShape2D_nkgu8")
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
-
 [connection signal="area_entered" from="Watchman/Area2D" to="Watchman" method="_on_area_2d_area_entered"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
