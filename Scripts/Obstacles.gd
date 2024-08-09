@@ -1,9 +1,11 @@
 extends ModularLocation
 
 var lanes: int = 0
-var move_speed = 400.0 # Speed of movement downwards
+var move_speed = 800.0 # Speed of movement downwards
 var current_lane = 0
+@onready var player = $AnimationPlayer
 @onready var enabled = false
+
 # Called when the node enters the scene tree for the first time
 func _ready():
 	call_deferred("do_setup")
@@ -17,12 +19,14 @@ func choose_lane(lane):
 		current_lane = lane
 	grid_pos[0] = current_lane
 	handle_position()
-	position = Vector2(real_pos.x, -100)
+	position = Vector2(real_pos.x, -200)
 	
 func do_setup():
 	# Choose a random lane and set the initial position
 	choose_lane(99)
 	
+func choose_look(char:String):
+	player.play(char)
 
 
 

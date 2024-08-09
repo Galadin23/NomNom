@@ -6,7 +6,7 @@ extends Node2D
 var obstacle_count = 0
 var obstacles: Array = [] # List to hold obstacle instances
 var obstacle_queue = []
-
+var large_section = false
 #  0 = rock
 #  * = Lilypad
 #  @ = log
@@ -14,18 +14,32 @@ var obstacle_queue = []
 #  $ = coin
 #  
 var patterns = [
-	['0-0'],
-	['00-'],
-	['-00'],
-	['--0'],
-	['0--'],
-
+	#['0-0'],
+	#['00-'],
+	#['-00'],
+	#['--0'],
+	#['0--'],
+	#[
+		#['-*-'],
+		#['-*-'],
+		#['-*-'],
+		#['**-'],
+		#['**-'],
+		#['*--'],
+		#['*--'],
+		#['*--'],
+	#],
 	[
 		['0-0'],
 		['0--'],
 		['00-'],
-		['00-'],
+		['0--'],
 		['---'],
+		['-00'],
+		['-00'],
+		['-00'],
+		['-00'],
+		['-00'],
 		['-00'],
 	],
 ]
@@ -54,10 +68,14 @@ func _on_timer_timeout():
 	
 	$Timer.wait_time = randi() % 5
 	if obstacle_queue.size() <=0:
+		if large_section == true:
+			large_section = false
+			return
 		queue()
-		
+
 	if obstacle_queue.size() > 1:
-		$Timer.wait_time = 0.5
+		$Timer.wait_time = 0.35
+		large_section = true
 
 	var obstacle_course = obstacle_queue.pop_front()
 	var row = obstacle_course[0]
@@ -67,5 +85,8 @@ func _on_timer_timeout():
 			var lane_index = x # Use the x position as the lane index
 			obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
 			obstacles[obstacle_count].enabled = true # Enable the obstacle
+			obstacles[obstacle_count].choose_look(char)
 			obstacle_count+=1
+		if(obstacle_count>=num_obstacles):
+			obstacle_count = 0
 

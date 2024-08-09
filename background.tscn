@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbj6qa88867lu"]
+
+[ext_resource type="Shader" path="res://background.gdshader" id="1_onej2"]
+[ext_resource type="Texture2D" uid="uid://dx8my048b6rxe" path="res://Assets/Water.png" id="2_6xccq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgyx3"]
+render_priority = 0
+shader = ExtResource("1_onej2")
+
+[node name="Background" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dgyx3")
+offset_top = -250.0
+offset_right = 1080.0
+offset_bottom = 2071.0
+texture = ExtResource("2_6xccq")
+stretch_mode = 1

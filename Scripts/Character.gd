@@ -1,12 +1,12 @@
 extends ModularLocation
 
 var char = {
-	"speed": 25,
+	"speed": 10,
 	"jump_power":230,
 	"dive_length":2, 
-	"gravity": 980 ,
-	
+	"gravity": 980,
 }
+
 
 @onready var state_chart:StateChart = $StateChart
 var heightlayer: int = 1 # 0 = underwater 1 = water, 2 = lilipad
@@ -40,7 +40,7 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
-	print(Ypos)
+	print(char.speed)
 	Ypos += char_velocity
 	if airborn:
 		char_velocity -= char.gravity * delta
