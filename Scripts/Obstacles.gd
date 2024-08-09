@@ -17,7 +17,7 @@ func choose_lane(lane):
 		current_lane = lane
 	grid_pos[0] = current_lane
 	handle_position()
-	position = Vector2(real_pos.x, -200)
+	position = Vector2(real_pos.x, -100)
 	
 func do_setup():
 	# Choose a random lane and set the initial position

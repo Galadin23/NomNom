@@ -178,6 +178,7 @@ event = &"Swimming"
 delay_in_seconds = "0.0"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [node name="Coin" parent="." instance=ExtResource("12_4jp5g")]

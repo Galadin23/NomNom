@@ -50,8 +50,14 @@ func _ready():
 
 
 func _on_timer_timeout():
-	if obstacle_queue.size() < 10:
+	print(obstacle_queue.size())
+	
+	$Timer.wait_time = randi() % 5
+	if obstacle_queue.size() <=0:
 		queue()
+		
+	if obstacle_queue.size() > 1:
+		$Timer.wait_time = 0.5
 
 	var obstacle_course = obstacle_queue.pop_front()
 	var row = obstacle_course[0]
