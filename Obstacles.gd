@@ -9,13 +9,21 @@ func _ready():
 	call_deferred("do_setup")
 
 
-func do_setup():
+func choose_lane(lane):
 	lanes = grid_size[0]
-	# Choose a random lane and set the initial position
-	current_lane = randi() % lanes +1
+	if lane > lanes:
+		current_lane = randi() % lanes +1
+	else: 
+		current_lane = lane
 	grid_pos[0] = current_lane
 	handle_position()
-	position = Vector2(real_pos.x, -200) 
+	position = Vector2(real_pos.x, -200)
+	
+func do_setup():
+	# Choose a random lane and set the initial position
+	choose_lane(99)
+	
+
 
 
 func move_object(delta):

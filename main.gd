@@ -3,28 +3,42 @@ extends Node2D
 @export var obstacle_scene: PackedScene # Export the obstacle scene
 @export var num_obstacles: int = 100 # Total number of obstacles
 @export var spawn_interval: float = 1.0 # Time in seconds between each spawn
-
+var obstacle_count = 0
 var obstacles: Array = [] # List to hold obstacle instances
-#0 = rock
-#* = Lilypad
-#@ = log
-#- = empty
+var obstacle_queue = []
 
+#  0 = rock
+#  * = Lilypad
+#  @ = log
+#  - = empty
+#  $ = coin
+#  
 var patterns = [
 	['0-0'],
 	['00-'],
 	['-00'],
 	['--0'],
 	['0--'],
+
 	[
-	'0-0',
-	'0--',
-	'00-',
-	'00-',
-	'---',
-	'-00',
-	]
+		['0-0'],
+		['0--'],
+		['00-'],
+		['00-'],
+		['---'],
+		['-00'],
+	],
 ]
+
+func queue():
+	var pattern_index = randi() % patterns.size() # Choose a random pattern
+	var pattern = patterns[pattern_index] # Get the chosen pattern
+	# Process each row (y) of the pattern
+	for y in range(pattern.size()):
+		if pattern.size() == 1:
+			obstacle_queue.append(patterns[pattern_index])
+		else:
+			obstacle_queue.append(pattern[y])
 
 
 func _ready():
@@ -33,14 +47,19 @@ func _ready():
 		var obstacle_instance = obstacle_scene.instantiate() # Create an instance of the obstacle
 		add_child(obstacle_instance) # Add the obstacle to the scene
 		obstacles.append(obstacle_instance) # Add the instance to the list
-	
-func _on_timer_timeout():
-	var count = 0
-	for obstacle in obstacles:
-		if not obstacle.enabled and count < 3:
-			obstacle.enabled = true # Enable the obstacle
-			count += 1
-		if count >= 3:
-			break
 
+
+func _on_timer_timeout():
+	if obstacle_queue.size() < 10:
+		queue()
+
+	var obstacle_course = obstacle_queue.pop_front()
+	var row = obstacle_course[0]
+	for x in range( row.length()):
+		var char = row[x] # Get the character at position x
+		if char != '-': # Check if it's not an empty space
+			var lane_index = x # Use the x position as the lane index
+			obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
+			obstacles[obstacle_count].enabled = true # Enable the obstacle
+			obstacle_count+=1
 
