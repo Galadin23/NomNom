@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbpxgnpswhy4j"]
+[gd_scene load_steps=8 format=3 uid="uid://bbpxgnpswhy4j"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_gvpn2"]
+[ext_resource type="Texture2D" uid="uid://b6igxri0a4vvd" path="res://Assets/Logos/test_logo.png" id="2_ahfay"]
+[ext_resource type="Texture2D" uid="uid://csi5ynhtajatg" path="res://Assets/Logos/test_playbutton.png" id="3_hxlha"]
+[ext_resource type="Texture2D" uid="uid://otvgk8ltissh" path="res://Assets/Logos/test_playbutton_hover.png" id="4_yg0su"]
+[ext_resource type="Texture2D" uid="uid://0kxi751wa57u" path="res://Assets/Logos/test_exitbutton.png" id="5_lc6yd"]
+[ext_resource type="Texture2D" uid="uid://cdml0uyesqp0v" path="res://Assets/Logos/test_exitbutton_hover.png" id="6_pbome"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_ufkdx"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -18,42 +25,49 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.572988, 0.572988, 0.572988, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="ColorRect/VBoxContainer"]
+[node name="TestLogo" type="Sprite2D" parent="ColorRect/MarginContainer/VBoxContainer"]
+position = Vector2(-4, 204)
+texture = ExtResource("2_ahfay")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
+texture = SubResource("ImageTexture_ufkdx")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="ColorRect/VBoxContainer/MarginContainer"]
+[node name="TextureButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 50
-text = "Nom Nom"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture_normal = ExtResource("3_hxlha")
+texture_hover = ExtResource("4_yg0su")
 
-[node name="Button" type="Button" parent="ColorRect/VBoxContainer"]
+[node name="TextureButton2" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 50
-text = "Play"
+texture_normal = ExtResource("5_lc6yd")
+texture_hover = ExtResource("6_pbome")
 
-[node name="Button2" type="Button" parent="ColorRect/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 50
-text = "Exit"
-
-[connection signal="pressed" from="ColorRect/VBoxContainer/Button" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="ColorRect/VBoxContainer/Button2" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/TextureButton" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/TextureButton2" to="." method="_on_exit_pressed"]
