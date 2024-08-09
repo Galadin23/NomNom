@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bp53rg28rclmo"]
 
-[ext_resource type="Script" path="res://Menus/stats.gd" id="1_56epm"]
+[ext_resource type="Script" path="res://Scripts/stats.gd" id="1_56epm"]
 
 [node name="Stats" type="Control"]
 layout_mode = 3
