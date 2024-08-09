@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbpxgnpswhy4j"]
+[gd_scene load_steps=10 format=3 uid="uid://bbpxgnpswhy4j"]
 
 [ext_resource type="Script" path="res://Menus/main_menu.gd" id="1_gvpn2"]
-[ext_resource type="Texture2D" uid="uid://b6igxri0a4vvd" path="res://Assets/Logos/test_logo.png" id="2_ahfay"]
-[ext_resource type="Texture2D" uid="uid://csi5ynhtajatg" path="res://Assets/Logos/test_playbutton.png" id="3_hxlha"]
-[ext_resource type="Texture2D" uid="uid://otvgk8ltissh" path="res://Assets/Logos/test_playbutton_hover.png" id="4_yg0su"]
-[ext_resource type="Texture2D" uid="uid://0kxi751wa57u" path="res://Assets/Logos/test_exitbutton.png" id="5_lc6yd"]
-[ext_resource type="Texture2D" uid="uid://cdml0uyesqp0v" path="res://Assets/Logos/test_exitbutton_hover.png" id="6_pbome"]
+[ext_resource type="Texture2D" uid="uid://b6igxri0a4vvd" path="res://Assets/Buttons/test_logo.png" id="2_ahfay"]
+[ext_resource type="Texture2D" uid="uid://csi5ynhtajatg" path="res://Assets/Buttons/test_playbutton.png" id="3_hxlha"]
+[ext_resource type="Texture2D" uid="uid://otvgk8ltissh" path="res://Assets/Buttons/test_playbutton_hover.png" id="4_yg0su"]
+[ext_resource type="Texture2D" uid="uid://0kxi751wa57u" path="res://Assets/Buttons/test_exitbutton.png" id="5_lc6yd"]
+[ext_resource type="Texture2D" uid="uid://pamiluadnc8i" path="res://Assets/Buttons/test_statsbutton.png" id="5_wckpq"]
+[ext_resource type="Texture2D" uid="uid://cdml0uyesqp0v" path="res://Assets/Buttons/test_exitbutton_hover.png" id="6_pbome"]
+[ext_resource type="Texture2D" uid="uid://7bee04783png" path="res://Assets/Buttons/test_statsbutton_hover.png" id="6_rvn4i"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_ufkdx"]
 
@@ -59,15 +61,21 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="TextureButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
+[node name="PlayButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 texture_normal = ExtResource("3_hxlha")
 texture_hover = ExtResource("4_yg0su")
 
-[node name="TextureButton2" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
+[node name="StatsButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("5_wckpq")
+texture_hover = ExtResource("6_rvn4i")
+
+[node name="ExitButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 texture_normal = ExtResource("5_lc6yd")
 texture_hover = ExtResource("6_pbome")
 
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/TextureButton" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/TextureButton2" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/StatsButton" to="." method="_on_stats_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]

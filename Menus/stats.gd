@@ -10,12 +10,6 @@ func _ready():
 func _process(delta):
 	pass
 
-func _on_play_button_pressed():
-	get_tree().change_scene_to_file("res://node_2d.tscn")
-	
-func _on_exit_button_pressed():
-	get_tree().quit()
-
-
-func _on_stats_button_pressed():
-	get_tree().change_scene_to_file("res://Menus/stats.tscn")
+# Called when the Back button is pressed
+func _on_back_button_pressed():
+	get_tree().change_scene_to_file("res://Menus/main_menu.tscn")
