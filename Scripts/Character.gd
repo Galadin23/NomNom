@@ -9,6 +9,7 @@ var char = {
 
 
 @onready var state_chart:StateChart = $StateChart
+@onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
 var heightlayer: int = 1 # 0 = underwater 1 = water, 2 = lilipad
 var Ypos = 0;
 var char_velocity = 0
@@ -40,13 +41,7 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
-	print(char.speed)
-	Ypos += char_velocity
-	if airborn:
-		char_velocity -= char.gravity * delta
 	if Ypos <=0 and airborn:
-		Ypos = 0
-		char_velocity = 0
 		airborn = false
 		state_chart.send_event('Swimming')
 	# Smoothly interpolate between the current position and the real position
@@ -56,7 +51,8 @@ func _process(delta):
 func _on_jumping_state_entered():
 	airborn = true
 	heightlayer +=1
-	char_velocity = char.jump_power
+	Ypos = 20
+	anim.play("jumping")
 
 
 func _on_diving_state_entered():
@@ -66,10 +62,12 @@ func _on_diving_state_entered():
 
 func _on_swimming_state_entered():
 	heightlayer = 1
+	anim.play("swimming")
 
 
 func _on_running_state_entered():
 	heightlayer = 2
+	anim.play("running")
 
 
 func _on_divetimer_timeout():

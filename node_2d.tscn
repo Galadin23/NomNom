@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=25 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://bard0614bs1ui" path="res://Obstacles/obstacles.tscn" id="10_6u8qc"]
 [ext_resource type="PackedScene" uid="uid://413qy8t8cygw" path="res://Collectables/coin.tscn" id="12_4jp5g"]
 [ext_resource type="Texture2D" uid="uid://dlcrqkr3iu7al" path="res://Assets/jump.png" id="13_n2fy8"]
+[ext_resource type="Texture2D" uid="uid://bdjogbs7gqs2l" path="res://Assets/run.png" id="14_lalvn"]
+[ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cewr4"]
 radius = 259.372
@@ -25,40 +27,35 @@ radius = 109.68
 radius = 56.0
 height = 146.0
 
-[sub_resource type="Animation" id="Animation_5tk4m"]
-resource_name = "swim"
-length = 0.7
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_711jj"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:texture")
+tracks/0/path = NodePath("Icon:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 1,
-"values": []
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:scale")
+tracks/1/path = NodePath("Icon:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.4),
-"transitions": PackedFloat32Array(0.784585, 0.420448),
-"update": 0,
-"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_n2fy8")]
 }
 
-[sub_resource type="Animation" id="Animation_hp58f"]
-resource_name = "run"
-
 [sub_resource type="Animation" id="Animation_72nr5"]
-resource_name = "jump"
+resource_name = "jumping"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -84,27 +81,68 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_711jj"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_hp58f"]
+resource_name = "running"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:scale")
+tracks/0/path = NodePath("Icon:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_lalvn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1.04815, 1.04815)]
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5tk4m"]
+resource_name = "swimming"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_v2j6e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(0.784585, 0.420448),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bp1sr"]
 _data = {
 "RESET": SubResource("Animation_711jj"),
-"jump": SubResource("Animation_72nr5"),
-"run": SubResource("Animation_hp58f"),
-"swim": SubResource("Animation_5tk4m")
+"jumping": SubResource("Animation_72nr5"),
+"running": SubResource("Animation_hp58f"),
+"swimming": SubResource("Animation_5tk4m")
 }
 
 [node name="Main" type="Node2D"]
@@ -182,7 +220,6 @@ script = ExtResource("9_ra30x")
 collision_layer = 2
 
 [node name="Icon" type="Sprite2D" parent="Character/CharacterBody2D"]
-scale = Vector2(1.04815, 1.04815)
 texture = ExtResource("13_n2fy8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D"]
@@ -192,7 +229,7 @@ shape = SubResource("CapsuleShape2D_4rdvu")
 libraries = {
 "": SubResource("AnimationLibrary_bp1sr")
 }
-autoplay = "swim"
+autoplay = "swimming"
 
 [node name="divetimer" type="Timer" parent="Character"]
 
