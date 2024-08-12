@@ -16,6 +16,8 @@ func _on_play_button_pressed():
 func _on_exit_button_pressed():
 	get_tree().quit()
 
-
 func _on_stats_button_pressed():
 	get_tree().change_scene_to_file("res://Menus/stats.tscn")
+
+func _on_shop_button_pressed():
+	get_tree().change_scene_to_file("res://Menus/shop.tscn")

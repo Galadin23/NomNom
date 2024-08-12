@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbpxgnpswhy4j"]
+[gd_scene load_steps=12 format=3 uid="uid://bbpxgnpswhy4j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_gvpn2"]
 [ext_resource type="Texture2D" uid="uid://b6igxri0a4vvd" path="res://Assets/Buttons/test_logo.png" id="2_ahfay"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://pamiluadnc8i" path="res://Assets/Buttons/test_statsbutton.png" id="5_wckpq"]
 [ext_resource type="Texture2D" uid="uid://cdml0uyesqp0v" path="res://Assets/Buttons/test_exitbutton_hover.png" id="6_pbome"]
 [ext_resource type="Texture2D" uid="uid://7bee04783png" path="res://Assets/Buttons/test_statsbutton_hover.png" id="6_rvn4i"]
+[ext_resource type="Texture2D" uid="uid://dsbpy40hu1a23" path="res://Assets/Buttons/test_shopbutton.png" id="7_emqhb"]
+[ext_resource type="Texture2D" uid="uid://ddwo4rf7gm5tx" path="res://Assets/Buttons/test_shopbutton_hover.png" id="8_k2spc"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_ufkdx"]
 
@@ -71,6 +73,11 @@ layout_mode = 2
 texture_normal = ExtResource("5_wckpq")
 texture_hover = ExtResource("6_rvn4i")
 
+[node name="ShopButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+texture_normal = ExtResource("7_emqhb")
+texture_hover = ExtResource("8_k2spc")
+
 [node name="ExitButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 texture_normal = ExtResource("5_lc6yd")
@@ -78,4 +85,5 @@ texture_hover = ExtResource("6_pbome")
 
 [connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/StatsButton" to="." method="_on_stats_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/ShopButton" to="." method="_on_shop_button_pressed"]
 [connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]

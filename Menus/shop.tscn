@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc2lq45y5q2fu"]
+
+[ext_resource type="Script" path="res://Scripts/Shop.gd" id="1_xmfkm"]
+
+[node name="Shop" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmfkm")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.585062, 0.585062, 0.585062, 1)
+
+[node name="VBoxMain" type="VBoxContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopStats" type="HBoxContainer" parent="ColorRect/VBoxMain"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/VBoxMain/TopStats"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="BackButton" type="Button" parent="ColorRect/VBoxMain/TopStats/MarginContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="Label" type="Label" parent="ColorRect/VBoxMain/TopStats"]
+layout_mode = 2
+text = "Coins: ---"
+
+[node name="ItemGrid" type="GridContainer" parent="ColorRect/VBoxMain"]
+layout_mode = 2
+columns = 4
+
+[connection signal="pressed" from="ColorRect/VBoxMain/TopStats/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
