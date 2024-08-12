@@ -89,12 +89,16 @@ var default_data = {
 			"longest time": 0,
 		},
 		"traits": {
-			"speed": 0,
-			"jump": 0, #time
-			"dive": 0, #time
-			"shield":0,
-			"magnet":0,
-			"invincible":0,
+			"speed": 0, # how fast he can switch lanes
+			"jump": 0, # how long you jump?
+			"dive": 0, # how long you can stay underwater
+			"energy": 0, # how fast your energy depletes
+			"energy_amnt": 100, # How much energy you have
+			"health": 100, # whats the max healthiness you can have
+			"shield":0, # How long the shield lasts
+			"shield_effectivenes":0, # How many blows the shield takes
+			"magnet":0, # How long the magnet lasts
+			"invincible":0, # How long he's invincible
 		},
 	}
 }
@@ -144,7 +148,7 @@ func load_data(path:String):
 			printerr("cannot parse %s as a json_string: (%s)" % [path, content])
 			return
 		player_data = PlayerData.new()
-		player_data.health = data.player_data.health
+		player_data.coins = data.player_data.health
 		player_data.gems = data.player_data.gems
 		player_data.shop = data.player_data.shop
 	else:
