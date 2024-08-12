@@ -81,7 +81,21 @@ var default_data = {
 				"purchased": false,
 				"description": "Gear up for a futuristic adventure with this sleek robot helmet. Perfect for tech enthusiasts and adventurers alike!"
 			}
-		}
+		},
+		"statistics": {
+			"meters_run": 0,
+			"total_coins":0,
+			"longest_distance":0,
+			"longest time": 0,
+		},
+		"traits": {
+			"speed": 0,
+			"jump": 0, #time
+			"dive": 0, #time
+			"shield":0,
+			"magnet":0,
+			"invincible":0,
+		},
 	}
 }
 
