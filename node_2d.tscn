@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=33 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://413qy8t8cygw" path="res://Collectables/coin.tscn" id="12_4jp5g"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_gf0oy"]
 [ext_resource type="Texture2D" uid="uid://dlcrqkr3iu7al" path="res://Assets/jump.png" id="13_n2fy8"]
+[ext_resource type="Texture2D" uid="uid://df2qmcbom36xq" path="res://Assets/water_edge_long.png" id="14_kqfeq"]
 [ext_resource type="Texture2D" uid="uid://bdjogbs7gqs2l" path="res://Assets/run.png" id="14_lalvn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
@@ -300,14 +301,13 @@ texture = ExtResource("4_mqn5n")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(-2160, 0)
 motion_mirroring = Vector2(0, 3840)
 
 [node name="Water" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer4"]
 modulate = Color(1, 1, 1, 0.839216)
 texture_filter = 1
 texture_repeat = 2
-texture = ExtResource("3_g4hby")
+texture = ExtResource("14_kqfeq")
 centered = false
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
