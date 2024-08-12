@@ -8,6 +8,7 @@ class_name ModularLocation
 var screen_size = [1080, 1920]
 
 func handle_position():
+	screen_size[1] = Global.screen_height
 	#print(grid_pos)
 	# Clamp position within grid bounds
 	grid_pos[0] = clamp(grid_pos[0], 1, grid_size[0])

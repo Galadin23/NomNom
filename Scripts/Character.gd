@@ -5,6 +5,7 @@ var char = {
 	"jump_power":230,
 	"dive_length":2, 
 	"gravity": 980,
+	"move_speed": 800,
 }
 
 
@@ -14,22 +15,34 @@ var heightlayer: int = 1 # 0 = underwater 1 = water, 2 = lilipad
 var Ypos = 0;
 var char_velocity = 0
 var airborn = false
+var swipe = {
+	"length": 60,
+	"swiping": false,
+	"startPos": Vector2.ZERO,
+	"curPos": Vector2.ZERO,
+	"swipe_x": [false,false],
+	"swipe_y": [false,false],
+	"threshold": 20,
+}
 
 # Called when the node enters the scene tree for the first time
 func _ready():
-	pass
+	grid_pos = [2,11]
+	handle_position()
+	position = real_pos
+
 
 # Handle input events
 func _input(event):
-
+	
 	if event.is_action_pressed("ui_right"):
 		grid_pos[0] += 1
 	elif event.is_action_pressed("ui_left"):
 		grid_pos[0] -= 1
-	elif event.is_action_pressed("ui_up"):
-		grid_pos[1] -= 1
-	elif event.is_action_pressed("ui_down"):
-		grid_pos[1] += 1
+	#elif event.is_action_pressed("ui_up"):
+		#grid_pos[1] -= 1
+	#elif event.is_action_pressed("ui_down"):
+		#grid_pos[1] += 1
 	if event.is_action_pressed("z") and not airborn:
 		print("Z pressed")
 		state_chart.send_event('Diving')
@@ -44,8 +57,45 @@ func _process(delta):
 	if Ypos <=0 and airborn:
 		airborn = false
 		state_chart.send_event('Swimming')
+		
 	# Smoothly interpolate between the current position and the real position
-	position = lerp(position, real_pos, char.speed * delta)
+	#position = lerp(position, real_pos, char.speed * delta)
+	position.x = lerp(position.x, real_pos.x, char.speed * delta)
+	swipe_handling()
+	move_object(delta)
+			
+func swipe_handling():
+	if Input.is_action_just_released("press"):
+		swipe.swiping = false
+		swipe.swipe_x = [false,false]
+		swipe.swipe_y = [false, false]
+		
+	if Input.is_action_just_pressed("press"):
+		if !swipe.swiping:
+			swipe.swiping = true
+			swipe.startPos = get_global_mouse_position()
+	
+	if swipe.swiping:
+		swipe.curPos = get_global_mouse_position()
+		if swipe.startPos.distance_to(swipe.curPos)>swipe.length:
+			if abs(swipe.startPos.y-swipe.curPos.y) <= swipe.threshold*3: # Horizontal Swiping
+				if swipe.startPos.x < swipe.curPos.x and not swipe.swipe_x[0]: # Going Right
+					swipe.swipe_x[0] = true
+					swipe.swipe_x[1] = false
+					grid_pos[0] += 1
+				elif swipe.startPos.x > swipe.curPos.x and not swipe.swipe_x[1]: # Going Left
+					swipe.swipe_x[0] = false
+					swipe.swipe_x[1] = true
+					grid_pos[0] -= 1
+			#if abs(swipe.startPos.x-swipe.curPos.x) <= swipe.threshold*7: # Horizontal Swiping
+				#if swipe.startPos.y+100 < swipe.curPos.y and not swipe.swipe_y[0]: # Going Right
+					#swipe.swipe_y[0] = true
+					#swipe.swipe_y[1] = false
+					#grid_pos[1] += 1
+				#elif swipe.startPos.y-100 > swipe.curPos.y and not swipe.swipe_y[1]: # Going Left
+					#swipe.swipe_y[0] = false
+					#swipe.swipe_y[1] = true
+					#grid_pos[1] -= 1
 
 
 func _on_jumping_state_entered():
@@ -72,3 +122,7 @@ func _on_running_state_entered():
 
 func _on_divetimer_timeout():
 	state_chart.send_event('Swimming')
+
+
+func move_object(delta):
+	position.y -= char.move_speed * delta

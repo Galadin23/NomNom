@@ -3,7 +3,7 @@ extends Node
 const SAVE_DIR = "user://saves/"
 const SAVE_FILE_NAME = "save.json"
 const SECURITY_KEY = "089SADFH"
-
+var screen_height = 1920
 var player_data = PlayerData.new()
 
 func _ready():
@@ -49,3 +49,5 @@ func load_data(path:String):
 		
 	else:
 		printerr("Cannot open non-existent file at %s!" % [path])
+
+

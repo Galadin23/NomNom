@@ -1,0 +1,337 @@
+[gd_scene load_steps=25 format=3 uid="uid://dxanotr24wrf6"]
+
+[ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
+[ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_xkq87"]
+[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="2_nb4u6"]
+[ext_resource type="Texture2D" uid="uid://dx8my048b6rxe" path="res://Assets/Water.png" id="3_ic7as"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_tytxx"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_3vm0j"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_hb68m"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_niupf"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_1qtxl"]
+[ext_resource type="Script" path="res://Scripts/Character.gd" id="9_ra30x"]
+[ext_resource type="PackedScene" uid="uid://bard0614bs1ui" path="res://Obstacles/obstacles.tscn" id="10_6u8qc"]
+[ext_resource type="PackedScene" uid="uid://413qy8t8cygw" path="res://Collectables/coin.tscn" id="12_4jp5g"]
+[ext_resource type="Texture2D" uid="uid://dlcrqkr3iu7al" path="res://Assets/jump.png" id="13_n2fy8"]
+[ext_resource type="Texture2D" uid="uid://bdjogbs7gqs2l" path="res://Assets/run.png" id="14_lalvn"]
+[ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cewr4"]
+radius = 259.372
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b80x0"]
+radius = 109.68
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rdvu"]
+radius = 56.0
+height = 146.0
+
+[sub_resource type="Animation" id="Animation_711jj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_n2fy8")]
+}
+
+[sub_resource type="Animation" id="Animation_72nr5"]
+resource_name = "jumping"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_n2fy8")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(0.210225, 1.86607, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hp58f"]
+resource_name = "running"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_lalvn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5tk4m"]
+resource_name = "swimming"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_v2j6e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.4),
+"transitions": PackedFloat32Array(0.784585, 0.420448),
+"update": 0,
+"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bp1sr"]
+_data = {
+"RESET": SubResource("Animation_711jj"),
+"jumping": SubResource("Animation_72nr5"),
+"running": SubResource("Animation_hp58f"),
+"swimming": SubResource("Animation_5tk4m")
+}
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_xkq87")
+obstacle_scene = ExtResource("10_6u8qc")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -1771.0
+offset_top = -544.0
+offset_right = 3816.0
+offset_bottom = 4670.0
+texture = ExtResource("3_ic7as")
+stretch_mode = 1
+
+[node name="Watchman" type="Node2D" parent="."]
+visible = false
+script = ExtResource("1_rvpur")
+
+[node name="Icon" type="Sprite2D" parent="Watchman"]
+position = Vector2(-2.99994, 0.00012207)
+scale = Vector2(1.64844, 1.64844)
+texture = ExtResource("1_18wkk")
+
+[node name="Area2D" type="Area2D" parent="Watchman"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Watchman/Area2D"]
+shape = SubResource("CircleShape2D_cewr4")
+
+[node name="StateChart" type="Node" parent="Watchman"]
+script = ExtResource("3_tytxx")
+
+[node name="Root" type="Node" parent="Watchman/StateChart"]
+script = ExtResource("4_3vm0j")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="Watchman/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To Observing" type="Node" parent="Watchman/StateChart/Root/Idle"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Observing")
+event = &"enemy_entered"
+delay_in_seconds = "0.0"
+
+[node name="Observing" type="Node" parent="Watchman/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="Enemy" type="Node2D" parent="."]
+visible = false
+position = Vector2(-160, -328)
+scale = Vector2(0.641421, 0.641421)
+script = ExtResource("2_nb4u6")
+
+[node name="Icon" type="Sprite2D" parent="Enemy"]
+position = Vector2(-2.99994, 0.00012207)
+scale = Vector2(1.64844, 1.64844)
+texture = ExtResource("1_18wkk")
+
+[node name="Area2D" type="Area2D" parent="Enemy"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Area2D"]
+scale = Vector2(1.28422, 1.27773)
+shape = SubResource("CircleShape2D_b80x0")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("8_1qtxl")]
+offset_left = 136.0
+offset_top = 183.0
+offset_right = 814.0
+offset_bottom = 816.0
+initial_node_to_watch = NodePath("../Character/StateChart")
+
+[node name="Character" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("9_ra30x")
+
+[node name="Camera2D" type="Camera2D" parent="Character"]
+scale = Vector2(1.00877, 1)
+position_smoothing_enabled = true
+position_smoothing_speed = 1.0
+drag_vertical_offset = -1.0
+drag_bottom_margin = 0.48
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Character"]
+collision_layer = 2
+
+[node name="Icon" type="Sprite2D" parent="Character/CharacterBody2D"]
+texture = ExtResource("13_n2fy8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_4rdvu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Character/CharacterBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_bp1sr")
+}
+autoplay = "swimming"
+
+[node name="divetimer" type="Timer" parent="Character"]
+
+[node name="StateChart" type="Node" parent="Character"]
+script = ExtResource("3_tytxx")
+
+[node name="Root" type="Node" parent="Character/StateChart"]
+script = ExtResource("4_3vm0j")
+initial_state = NodePath("Swimming")
+
+[node name="Running" type="Node" parent="Character/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Running"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Jumping")
+event = &"Jumping"
+delay_in_seconds = "0.0"
+
+[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Running"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Swimming")
+event = &"Swimming"
+delay_in_seconds = "0.0"
+
+[node name="Swimming" type="Node" parent="Character/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Swimming"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Jumping")
+event = &"Jumping"
+delay_in_seconds = "0.0"
+
+[node name="To_Diving" type="Node" parent="Character/StateChart/Root/Swimming"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Diving")
+event = &"Diving"
+delay_in_seconds = "0.0"
+
+[node name="To_Running" type="Node" parent="Character/StateChart/Root/Swimming"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Running")
+event = &"Running"
+delay_in_seconds = "0.0"
+
+[node name="Jumping" type="Node" parent="Character/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To_Running" type="Node" parent="Character/StateChart/Root/Jumping"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Running")
+event = &"Running"
+delay_in_seconds = "0.0"
+
+[node name="To_Diving" type="Node" parent="Character/StateChart/Root/Jumping"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Diving")
+event = &"Diving"
+delay_in_seconds = "0.0"
+
+[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Jumping"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Swimming")
+event = &"Swimming"
+delay_in_seconds = "0.0"
+
+[node name="Diving" type="Node" parent="Character/StateChart/Root"]
+script = ExtResource("5_hb68m")
+
+[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Diving"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Jumping")
+event = &"Jumping"
+delay_in_seconds = "0.0"
+
+[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Diving"]
+script = ExtResource("6_niupf")
+to = NodePath("../../Swimming")
+event = &"Swimming"
+delay_in_seconds = "0.0"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Coin" parent="." instance=ExtResource("12_4jp5g")]
+position = Vector2(520, 455)
+
+[connection signal="area_entered" from="Watchman/Area2D" to="Watchman" method="_on_area_2d_area_entered"]
+[connection signal="timeout" from="Character/divetimer" to="Character" method="_on_divetimer_timeout"]
+[connection signal="state_entered" from="Character/StateChart/Root/Running" to="Character" method="_on_running_state_entered"]
+[connection signal="state_entered" from="Character/StateChart/Root/Swimming" to="Character" method="_on_swimming_state_entered"]
+[connection signal="state_entered" from="Character/StateChart/Root/Jumping" to="Character" method="_on_jumping_state_entered"]
+[connection signal="state_entered" from="Character/StateChart/Root/Diving" to="Character" method="_on_diving_state_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
