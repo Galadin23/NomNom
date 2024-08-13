@@ -3,15 +3,16 @@ extends Node2D
 @export var obstacle_scene: PackedScene # Export the obstacle scene
 @export var num_obstacles: int = 100 # Total number of obstacles
 @export var spacing: int = 300 # Spacing between obstacles
-var obstacle_count = 0
-var obstacles: Array = [] # List to hold obstacle instances
-var obstacle_queue = []
-var start_y_pos: int = 200
 @export var min_empty_space: int = 1 # Minimum number of empty spaces to add
 @export var max_empty_space: int = 3 # Maximum number of empty spaces to add
 
+var obstacle_count: int = 0
+var obstacles: Array = [] # List to hold obstacle instances
+var obstacle_queue:Array = []
+var start_y_pos: int = 200
 
-var patterns = [
+
+var patterns: Array = [
 	[['-0-']],
 	[['00-']],
 	[['-00']],
@@ -53,9 +54,9 @@ func _ready():
 	
 	position_obstacles()
 
-func position_obstacles():
-	var current_y_pos = start_y_pos
-	var pattern_index = 0
+func position_obstacles() -> void:
+	var current_y_pos:int = start_y_pos
+	var pattern_index: int = 0
 	
 	while pattern_index < num_obstacles:
 		if obstacle_queue.size() <=2:
@@ -80,13 +81,13 @@ func position_obstacles():
 		pattern_index += 1
 
 func queue():
-	var pattern_index = randi() % patterns.size() # Choose a random pattern
+	var pattern_index: int = randi() % patterns.size() # Choose a random pattern
 	var pattern = patterns[pattern_index] # Get the chosen pattern
 	
 	# Check if the pattern is a single line
 	if pattern.size() == 1 and pattern[0].size() == 1:
-		var empty_before = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
-		var empty_after = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
+		var empty_before: int = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
+		var empty_after: int = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
 
 		# Add empty spaces before
 		for i in range(empty_before):
