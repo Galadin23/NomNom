@@ -5,6 +5,7 @@ class_name PlayerData
 
 @export var coins: int = 200
 @export var gems: int = 5
+@export var equipped_hat: String = "none"
 @export var shop: Dictionary = {
 	"cos_1": {
 		"name": "Cow Beanie",
@@ -88,6 +89,7 @@ class_name PlayerData
 	"energy_depletion": 0, # how fast your energy depletes (N p/s)
 	"energy": 100, # How much energy you have
 	"max_energy": 100,
+
 	"max_upgrade_energy": 300,
 
 	"health": 100, # whats the max healthiness you can have
@@ -104,6 +106,11 @@ class_name PlayerData
 
 	"invincible": 10, # How long he's invincible (seconds)
 	"max_invincible": 30,
+
+	"sleep_boost_multiplyer": 1,
+	"coin_multiplyer":1,
+	"treasure_return": false,
+
 }
 
 @export var statistics: Dictionary = {

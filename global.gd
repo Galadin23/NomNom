@@ -6,6 +6,8 @@ const SECURITY_KEY: String = "089SADFH"
 var screen_height: int = 1920
 var player_data: PlayerData = PlayerData.new()
 var traits: Dictionary = player_data.traits
+var upgrades: Array = []
+var player_traits_default: Dictionary = traits
 
 var food: Dictionary = {
 	"broccoli": {"energy": 10, "health": 5 },
@@ -26,13 +28,13 @@ func _ready():
 func verify_save_directory(path: String):
 	DirAccess.make_dir_absolute(path)
 
-func save_data(path: String):
-	var file = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE,SECURITY_KEY)
+func save_data(path: String) -> void:
+	var file: FileAccess = FileAccess.open_encrypted_with_pass(path, FileAccess.WRITE,SECURITY_KEY)
 	if file == null:
 		print(FileAccess.get_open_error())
 		return
 	
-	var data = {
+	var data: Dictionary = {
 		"player_data": {
 			"coins": player_data.coins,
 			"gems": player_data.gems,
@@ -40,17 +42,17 @@ func save_data(path: String):
 		}
 	}
 	
-	var json_string = JSON.stringify(data,"\t")
+	var json_string: String = JSON.stringify(data,"\t")
 	file.store_string(json_string)
 	file.close()
 	
-func load_data(path:String):
+func load_data(path:String) -> void:
 	if FileAccess.file_exists(path):
-		var file = FileAccess.open_encrypted_with_pass(path,FileAccess.READ,SECURITY_KEY)
+		var file: FileAccess = FileAccess.open_encrypted_with_pass(path,FileAccess.READ,SECURITY_KEY)
 		if file == null:
 			print(FileAccess.get_open_error())
 			return
-		var content = file.get_as_text()
+		var content: String = file.get_as_text()
 		file.close
 		
 		var data = JSON.parse_string(content)
@@ -64,7 +66,38 @@ func load_data(path:String):
 	else:
 		printerr("Cannot open non-existent file at %s!" % [path])
 
+func apply_upgrades():
+    for upgrade in upgrades:
+        apply_upgrade(upgrade)
 
+func apply_upgrade(upgrade: AbilityUpgrade) -> void:
+    var attribute: String = upgrade.attribute_name
+    var value: float      = upgrade.effect_value
+
+    if not traits.has(attribute):
+        print("Trait ", attribute, " does not exist.")
+        return
+
+    match upgrade.effect_type:
+        "multiply":
+            traits[attribute] *= value
+        "add":
+            traits[attribute] += value
+        "subtract":
+            traits[attribute] -= value
+        "divide":
+            if value != 0:
+                traits[attribute] /= value
+            else:
+                print("Error: Division by zero.")
+
+func add_upgrade(upgrade: AbilityUpgrade):
+    upgrades.append(upgrade)
+    apply_upgrades()
+
+func remove_upgrade(upgrade: AbilityUpgrade):
+    upgrades.erase(upgrade)
+    apply_upgrades()
 
 func apply_food(energy: int, health: int):
 	traits.health += ( traits.max_health * (health/100) )

@@ -1,21 +1,19 @@
 extends ModularLocation
-
-var char = {
+@onready var state_chart:StateChart = $StateChart
+@onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
+@onready var chara: Dictionary = {
 	"speed": 10,
 	"jump_power":230,
-	"dive_length":2, 
+	"dive_length":2,
 	"gravity": 980,
 	"move_speed": 800,
 }
 
-
-@onready var state_chart:StateChart = $StateChart
-@onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
 var heightlayer: int = 1 # 0 = underwater 1 = water, 2 = lilipad
-var Ypos = 0;
+var Ypos: int = 0;
 var char_velocity = 0
-var airborn = false
-var swipe = {
+var airborn: bool = false
+var swipe: Dictionary = {
 	"length": 60,
 	"swiping": false,
 	"startPos": Vector2.ZERO,
@@ -24,6 +22,8 @@ var swipe = {
 	"swipe_y": [false,false],
 	"threshold": 20,
 }
+
+
 
 # Called when the node enters the scene tree for the first time
 func _ready():
@@ -34,7 +34,7 @@ func _ready():
 
 # Handle input events
 func _input(event):
-	
+
 	if event.is_action_pressed("ui_right"):
 		grid_pos[0] += 1
 	elif event.is_action_pressed("ui_left"):
@@ -48,33 +48,33 @@ func _input(event):
 		state_chart.send_event('Diving')
 	if event.is_action_pressed("space_bar"):
 		state_chart.send_event('Jumping')
-		
+
 	handle_position()
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
 	if Ypos <=0 and airborn:
 		airborn = false
 		state_chart.send_event('Swimming')
-		
+
 	# Smoothly interpolate between the current position and the real position
-	#position = lerp(position, real_pos, char.speed * delta)
-	position.x = lerp(position.x, real_pos.x, char.speed * delta)
+	#position = lerp(position, real_pos, chara.speed * delta)
+	position.x = lerp(position.x, real_pos.x, chara.speed * delta)
 	swipe_handling()
 	move_object(delta)
-			
+
 func swipe_handling():
 	if Input.is_action_just_released("press"):
 		swipe.swiping = false
 		swipe.swipe_x = [false,false]
 		swipe.swipe_y = [false, false]
-		
+
 	if Input.is_action_just_pressed("press"):
 		if !swipe.swiping:
 			swipe.swiping = true
 			swipe.startPos = get_global_mouse_position()
-	
+
 	if swipe.swiping:
 		swipe.curPos = get_global_mouse_position()
 		if swipe.startPos.distance_to(swipe.curPos)>swipe.length:
@@ -125,4 +125,8 @@ func _on_divetimer_timeout():
 
 
 func move_object(delta):
-	position.y -= char.move_speed * delta
+	position.y -= chara.move_speed * delta
+
+func take_damage():
+
+	pass
