@@ -110,7 +110,7 @@ class_name PlayerData
 	"sleep_boost_multiplyer": 1,
 	"coin_multiplyer":1,
 	"treasure_return": false,
-
+	"magnet_enabled": false,
 }
 
 @export var statistics: Dictionary = {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=34 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
 [ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
+[ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rdvu"]
 radius = 56.0
@@ -401,6 +402,10 @@ autostart = true
 [node name="Coin" parent="." instance=ExtResource("12_4jp5g")]
 z_index = 10
 position = Vector2(520, 455)
+
+[node name="Powerup" parent="." instance=ExtResource("24_q07gp")]
+position = Vector2(563, -329)
+upgrade_name = "magnet"
 
 [connection signal="timeout" from="Character/divetimer" to="Character" method="_on_divetimer_timeout"]
 [connection signal="state_entered" from="Character/StateChart/Root/Running" to="Character" method="_on_running_state_entered"]

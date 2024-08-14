@@ -7,7 +7,7 @@ var screen_height: int = 1920
 var player_data: PlayerData = PlayerData.new()
 var traits: Dictionary = player_data.traits
 var upgrades: Array = []
-var player_traits_default: Dictionary = traits
+var player_traits_default: Dictionary = {}
 
 var food: Dictionary = {
 	"broccoli": {"energy": 10, "health": 5 },
@@ -39,6 +39,7 @@ func save_data(path: String) -> void:
 			"coins": player_data.coins,
 			"gems": player_data.gems,
 			"shop": player_data.shop,
+			"traits": player_data.traits,
 		}
 	}
 	
@@ -63,42 +64,57 @@ func load_data(path:String) -> void:
 		player_data.coins = data.player_data.health
 		player_data.gems = data.player_data.gems
 		player_data.shop = data.player_data.shop
+		player_data.traits = data.player_data.traits
 	else:
 		printerr("Cannot open non-existent file at %s!" % [path])
 
 func apply_upgrades():
-    for upgrade in upgrades:
-        apply_upgrade(upgrade)
+	# Restore default traits
+	traits = player_traits_default.duplicate()
+	
+	for upgrade in upgrades:
+		apply_upgrade(upgrade)
 
 func apply_upgrade(upgrade: AbilityUpgrade) -> void:
-    var attribute: String = upgrade.attribute_name
-    var value: float      = upgrade.effect_value
+	var attribute: String = upgrade.attribute_name
+	var value: float      = upgrade.effect_value
+	
+	if not traits.has(attribute):
+		print("Trait ", attribute, " does not exist.")
+		return
 
-    if not traits.has(attribute):
-        print("Trait ", attribute, " does not exist.")
-        return
-
-    match upgrade.effect_type:
-        "multiply":
-            traits[attribute] *= value
-        "add":
-            traits[attribute] += value
-        "subtract":
-            traits[attribute] -= value
-        "divide":
-            if value != 0:
-                traits[attribute] /= value
-            else:
-                print("Error: Division by zero.")
+	match upgrade.effect_type:
+		"multiply":
+			traits[attribute] *= value
+		"add":
+			traits[attribute] += value
+		"subtract":
+			traits[attribute] -= value
+		"bool": 
+			traits[attribute] = value
+		"divide":
+			if value != 0:
+				traits[attribute] /= value
+			else:
+				print("Error: Division by zero.")
 
 func add_upgrade(upgrade: AbilityUpgrade):
-    upgrades.append(upgrade)
-    apply_upgrades()
+	upgrades.append(upgrade)
+	apply_upgrades()
 
 func remove_upgrade(upgrade: AbilityUpgrade):
-    upgrades.erase(upgrade)
-    apply_upgrades()
+	var name = upgrade.attribute_name
+	upgrades.erase(upgrade)
+		# Restore the trait to its default value
+	if player_traits_default.has(name):
+		traits[name] = player_traits_default[name]
+	for i in upgrades:
+		if i.attribute_name == name:
+			apply_upgrade(i)
 
 func apply_food(energy: int, health: int):
 	traits.health += ( traits.max_health * (health/100) )
 	traits.energy += ( traits.max_energy * (energy/100) )
+
+func start_game():
+	player_traits_default = traits

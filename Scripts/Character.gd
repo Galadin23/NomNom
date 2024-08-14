@@ -8,6 +8,7 @@ extends ModularLocation
 	"gravity": 980,
 	"move_speed": 800,
 }
+var Applied_powerups: Array = [] # what powerups are applied to the player during the game
 
 var heightlayer: int = 1 # 0 = underwater 1 = water, 2 = lilipad
 var Ypos: int = 0;

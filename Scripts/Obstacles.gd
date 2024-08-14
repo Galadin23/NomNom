@@ -12,8 +12,6 @@ func _ready():
 	position.y = 20000
 
 func choose_lane(lane):
-	#print(lane)
-	#print(grid_size[0])
 	lanes = grid_size[0]
 	if lane > lanes:
 		current_lane = randi() % lanes +1
