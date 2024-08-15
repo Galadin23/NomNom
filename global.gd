@@ -5,7 +5,7 @@ const SAVE_FILE_NAME: String = "save.json"
 const SECURITY_KEY: String = "089SADFH"
 var screen_height: int = 1920
 var player_data: PlayerData = PlayerData.new()
-var traits: Dictionary = player_data.traits
+var traits: Dictionary = {}
 var upgrades: Array = []
 var player_traits_default: Dictionary = {}
 
@@ -21,8 +21,12 @@ var food: Dictionary = {
 func _ready():
 	verify_save_directory(SAVE_DIR)
 	load_data(SAVE_DIR)
-	if player_data == null:
+	
+	if traits.is_empty():
 		player_data = PlayerData.new()
+		print(player_data.traits)
+		player_traits_default = player_data.traits
+		traits = player_data.traits
 		save_data(SAVE_DIR)
 
 func verify_save_directory(path: String):
@@ -65,6 +69,8 @@ func load_data(path:String) -> void:
 		player_data.gems = data.player_data.gems
 		player_data.shop = data.player_data.shop
 		player_data.traits = data.player_data.traits
+		player_traits_default = data.player_data.traits
+		
 	else:
 		printerr("Cannot open non-existent file at %s!" % [path])
 
@@ -77,7 +83,7 @@ func apply_upgrades():
 
 func apply_upgrade(upgrade: AbilityUpgrade) -> void:
 	var attribute: String = upgrade.attribute_name
-	var value: float      = upgrade.effect_value
+	var value: float = upgrade.effect_value
 	
 	if not traits.has(attribute):
 		print("Trait ", attribute, " does not exist.")
@@ -91,7 +97,10 @@ func apply_upgrade(upgrade: AbilityUpgrade) -> void:
 		"subtract":
 			traits[attribute] -= value
 		"bool": 
-			traits[attribute] = value
+			if value == 1:
+				traits[attribute] = true
+			else:
+				traits[attribute] = false
 		"divide":
 			if value != 0:
 				traits[attribute] /= value

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://oo6j4c5xov24"]
+[gd_scene load_steps=4 format=3 uid="uid://ds1srweuojucp"]
 
 [ext_resource type="Script" path="res://Scripts/Powerup.gd" id="1_r263q"]
 [ext_resource type="Texture2D" uid="uid://d336k4tx62nlg" path="res://Assets/Items/coin.png" id="2_f00u0"]
@@ -10,13 +10,17 @@ radius = 137.015
 script = ExtResource("1_r263q")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 56.493
+autostart = true
 
 [node name="Coin" type="Sprite2D" parent="."]
 texture = ExtResource("2_f00u0")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_icg22")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

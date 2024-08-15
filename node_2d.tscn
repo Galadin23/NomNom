@@ -23,7 +23,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
 [ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
-[ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
+[ext_resource type="PackedScene" uid="uid://ds1srweuojucp" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rdvu"]
 radius = 56.0

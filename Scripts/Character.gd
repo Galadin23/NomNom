@@ -55,6 +55,7 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
+	print(Global.traits['magnet_enabled'])
 	if Ypos <=0 and airborn:
 		airborn = false
 		state_chart.send_event('Swimming')
