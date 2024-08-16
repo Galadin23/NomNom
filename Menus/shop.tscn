@@ -44,14 +44,17 @@ text = "Back"
 
 [node name="CoinLabel" type="Label" parent="ColorRect/VBoxMain/TopStats"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Coins: ---"
 
 [node name="ItemScrollbar" type="ScrollContainer" parent="ColorRect/VBoxMain"]
 custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 0
 
 [node name="ItemsContainer" type="VBoxContainer" parent="ColorRect/VBoxMain/ItemScrollbar"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [connection signal="pressed" from="ColorRect/VBoxMain/TopStats/MarginContainer/BackButton" to="." method="_on_back_button_pressed"]
