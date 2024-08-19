@@ -28,12 +28,9 @@ func do_setup():
 func choose_look(char:String):
 	player.play(char)
 
+func remove():
+	enabled = false
+	position.y = 3000
 
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame
-func _process(delta):
-	# Smoothly interpolate between the current position and the real position
-	#position = lerp(position, real_pos, 5 * delta)
-	position.x = real_pos.x
-	pass
+func _on_area_2d_body_entered(body):
+	remove()

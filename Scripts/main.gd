@@ -2,7 +2,8 @@ extends Node2D
 
 @export var obstacle_scene: PackedScene # Export the obstacle scene
 @export var collectable_scene: PackedScene # Export the obstacle scene
-@export var num_obstacles: int = 100 # Total number of obstacles
+@onready var player = $Character # Export the obstacle scene
+@export var num_obstacles: int = 50 # Total number of obstacles
 @export var num_collectables: int = 20 # Total number of obstacles
 @export var spacing: int = 300 # Spacing between obstacles
 @export var min_empty_space: int = 1 # Minimum number of empty spaces to add
@@ -66,7 +67,7 @@ func position_objects() -> void:
 	if obstacle_queue.size() <=2:
 		queue() # Fill the queue with patterns if empty
 	
-	while Global.current_y_pos < obstacle_queue.size():
+	while obstacle_queue.size() > 0:
 
 		var obstacle_course = obstacle_queue.pop_front()
 		
@@ -76,7 +77,7 @@ func position_objects() -> void:
 			
 			if char != '-': # Check if it's not an empty space
 				if obstacle_count < num_obstacles:
-					obstacles[obstacle_count].position.y = current_y_pos
+					obstacles[obstacle_count].position.y = Global.current_y_pos
 					obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
 					obstacles[obstacle_count].enabled = true # Enable the obstacle
 					obstacles[obstacle_count].choose_look(char)
@@ -99,8 +100,8 @@ func queue():
 		var empty_after: int = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
 
 		# Add empty spaces before
-		#for i in range(empty_before):
-			#obstacle_queue.append('---')
+		for i in range(empty_before):
+			obstacle_queue.append('---')
 		
 		# Add the actual pattern
 		for row in range(pattern.size() - 1, -1, -1):
@@ -108,8 +109,8 @@ func queue():
 				obstacle_queue.append(line)
 		
 		# Add empty spaces after
-		#for i in range(empty_after):
-			#obstacle_queue.append('---')
+		for i in range(empty_after):
+			obstacle_queue.append('---')
 	else:
 		for row in range(pattern.size() - 1, -1, -1):
 			for line in pattern[row]:
@@ -119,8 +120,9 @@ func find_screen_height():
 	Global.screen_height = get_viewport_rect().size.y
 	
 func _process(delta):
-	pass
+	if (player.position.y-2000) < Global.current_y_pos:
+		position_objects()
 
 func _on_timer_timeout():
 	queueposition = 0
-	position_objects()
+	#position_objects()

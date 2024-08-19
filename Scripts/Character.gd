@@ -53,7 +53,7 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
-	if Global.
+
 	#print(Global.traits['magnet_enabled'])
 	if Ypos <=0 and airborn:
 		airborn = false
@@ -128,6 +128,15 @@ func _on_divetimer_timeout():
 func move_object(delta):
 	position.y -= chara.move_speed * delta
 
-func take_damage():
 
-	pass
+func shield_damage() -> bool:
+	if Global.game_data.shield>0:
+		Global.game_data.shield-=1
+		return true
+	return false
+
+func take_damage():
+	var shield_taken: bool = shield_damage()
+	if not shield_taken:
+		Global.game_data.lives -=1
+

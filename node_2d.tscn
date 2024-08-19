@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=26 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
@@ -14,139 +14,14 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_hb68m"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="6_niupf"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="8_1qtxl"]
-[ext_resource type="Script" path="res://Scripts/Character.gd" id="9_ra30x"]
+[ext_resource type="PackedScene" uid="uid://bextijv66k7l" path="res://Player/character.tscn" id="8_mxbkv"]
 [ext_resource type="PackedScene" uid="uid://bard0614bs1ui" path="res://Obstacles/obstacles.tscn" id="10_6u8qc"]
 [ext_resource type="PackedScene" uid="uid://413qy8t8cygw" path="res://Collectables/coin.tscn" id="12_4jp5g"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_gf0oy"]
-[ext_resource type="Texture2D" uid="uid://dlcrqkr3iu7al" path="res://Assets/jump.png" id="13_n2fy8"]
 [ext_resource type="Texture2D" uid="uid://df2qmcbom36xq" path="res://Assets/water_edge_long.png" id="14_kqfeq"]
-[ext_resource type="Texture2D" uid="uid://bdjogbs7gqs2l" path="res://Assets/run.png" id="14_lalvn"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
-[ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
 [ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rdvu"]
-radius = 56.0
-height = 146.0
-
-[sub_resource type="Animation" id="Animation_711jj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:texture")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("13_n2fy8")]
-}
-
-[sub_resource type="Animation" id="Animation_72nr5"]
-resource_name = "jumping"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("13_n2fy8")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.8),
-"transitions": PackedFloat32Array(0.210225, 1.86607, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_hp58f"]
-resource_name = "running"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("14_lalvn")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_5tk4m"]
-resource_name = "swimming"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("15_v2j6e")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1, 0.4),
-"transitions": PackedFloat32Array(0.784585, 0.420448),
-"update": 0,
-"values": [Vector2(1.05, 1.05), Vector2(1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bp1sr"]
-_data = {
-"RESET": SubResource("Animation_711jj"),
-"jumping": SubResource("Animation_72nr5"),
-"running": SubResource("Animation_hp58f"),
-"swimming": SubResource("Animation_5tk4m")
-}
 
 [sub_resource type="Resource" id="Resource_edwxm"]
 script = ExtResource("15_ksqwx")
@@ -164,111 +39,6 @@ radius = 109.68
 script = ExtResource("1_xkq87")
 obstacle_scene = ExtResource("10_6u8qc")
 collectable_scene = ExtResource("3_kfcmu")
-num_obstacles = null
-num_collectables = null
-spacing = null
-min_empty_space = null
-max_empty_space = null
-
-[node name="Character" type="Node2D" parent="."]
-z_index = 2
-script = ExtResource("9_ra30x")
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Character"]
-collision_layer = 2
-
-[node name="Icon" type="Sprite2D" parent="Character/CharacterBody2D"]
-texture = ExtResource("13_n2fy8")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Character/CharacterBody2D"]
-shape = SubResource("CapsuleShape2D_4rdvu")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Character/CharacterBody2D"]
-libraries = {
-"": SubResource("AnimationLibrary_bp1sr")
-}
-autoplay = "swimming"
-
-[node name="divetimer" type="Timer" parent="Character"]
-
-[node name="StateChart" type="Node" parent="Character"]
-script = ExtResource("3_tytxx")
-
-[node name="Root" type="Node" parent="Character/StateChart"]
-script = ExtResource("4_3vm0j")
-initial_state = NodePath("Swimming")
-
-[node name="Running" type="Node" parent="Character/StateChart/Root"]
-script = ExtResource("5_hb68m")
-
-[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Running"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Jumping")
-event = &"Jumping"
-delay_in_seconds = "0.0"
-
-[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Running"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Swimming")
-event = &"Swimming"
-delay_in_seconds = "0.0"
-
-[node name="Swimming" type="Node" parent="Character/StateChart/Root"]
-script = ExtResource("5_hb68m")
-
-[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Swimming"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Jumping")
-event = &"Jumping"
-delay_in_seconds = "0.0"
-
-[node name="To_Diving" type="Node" parent="Character/StateChart/Root/Swimming"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Diving")
-event = &"Diving"
-delay_in_seconds = "0.0"
-
-[node name="To_Running" type="Node" parent="Character/StateChart/Root/Swimming"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Running")
-event = &"Running"
-delay_in_seconds = "0.0"
-
-[node name="Jumping" type="Node" parent="Character/StateChart/Root"]
-script = ExtResource("5_hb68m")
-
-[node name="To_Running" type="Node" parent="Character/StateChart/Root/Jumping"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Running")
-event = &"Running"
-delay_in_seconds = "0.0"
-
-[node name="To_Diving" type="Node" parent="Character/StateChart/Root/Jumping"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Diving")
-event = &"Diving"
-delay_in_seconds = "0.0"
-
-[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Jumping"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Swimming")
-event = &"Swimming"
-delay_in_seconds = "0.0"
-
-[node name="Diving" type="Node" parent="Character/StateChart/Root"]
-script = ExtResource("5_hb68m")
-
-[node name="To_Jumping" type="Node" parent="Character/StateChart/Root/Diving"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Jumping")
-event = &"Jumping"
-delay_in_seconds = "0.0"
-
-[node name="To_Swimming" type="Node" parent="Character/StateChart/Root/Diving"]
-script = ExtResource("6_niupf")
-to = NodePath("../../Swimming")
-event = &"Swimming"
-delay_in_seconds = "0.0"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -317,6 +87,8 @@ texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("14_kqfeq")
 centered = false
+
+[node name="Character" parent="." instance=ExtResource("8_mxbkv")]
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
 position = Vector2(0, -590)
@@ -393,7 +165,6 @@ offset_left = 1547.0
 offset_top = 523.0
 offset_right = 2225.0
 offset_bottom = 1156.0
-initial_node_to_watch = NodePath("../Character/StateChart")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, -590)
@@ -413,10 +184,5 @@ position = Vector2(520, 455)
 position = Vector2(563, -329)
 upgrade_name = "magnet"
 
-[connection signal="timeout" from="Character/divetimer" to="Character" method="_on_divetimer_timeout"]
-[connection signal="state_entered" from="Character/StateChart/Root/Running" to="Character" method="_on_running_state_entered"]
-[connection signal="state_entered" from="Character/StateChart/Root/Swimming" to="Character" method="_on_swimming_state_entered"]
-[connection signal="state_entered" from="Character/StateChart/Root/Jumping" to="Character" method="_on_jumping_state_entered"]
-[connection signal="state_entered" from="Character/StateChart/Root/Diving" to="Character" method="_on_diving_state_entered"]
 [connection signal="area_entered" from="Watchman/Area2D" to="Watchman" method="_on_area_2d_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
