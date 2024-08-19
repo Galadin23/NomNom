@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=35 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="1_18wkk"]
 [ext_resource type="Script" path="res://Scripts/Watchman.gd" id="1_rvpur"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Enemy.gd" id="2_nb4u6"]
 [ext_resource type="Texture2D" uid="uid://ce3yggudv31fv" path="res://Assets/sand_large.png" id="3_g4hby"]
 [ext_resource type="Texture2D" uid="uid://dx8my048b6rxe" path="res://Assets/Water.png" id="3_ic7as"]
+[ext_resource type="PackedScene" uid="uid://cde3x5kpwdqa4" path="res://Obstacles/collectable.tscn" id="3_kfcmu"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_tytxx"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_3vm0j"]
 [ext_resource type="Texture2D" uid="uid://bglci4hkt5wvt" path="res://Assets/water_frame.png" id="4_lcthc"]
@@ -23,7 +24,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
 [ext_resource type="Texture2D" uid="uid://b4mngo4tybco8" path="res://Assets/swim.png" id="15_v2j6e"]
-[ext_resource type="PackedScene" uid="uid://ds1srweuojucp" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
+[ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rdvu"]
 radius = 56.0
@@ -162,6 +163,12 @@ radius = 109.68
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xkq87")
 obstacle_scene = ExtResource("10_6u8qc")
+collectable_scene = ExtResource("3_kfcmu")
+num_obstacles = null
+num_collectables = null
+spacing = null
+min_empty_space = null
+max_empty_space = null
 
 [node name="Character" type="Node2D" parent="."]
 z_index = 2
@@ -382,10 +389,10 @@ scale = Vector2(1.28422, 1.27773)
 shape = SubResource("CircleShape2D_b80x0")
 
 [node name="StateChartDebugger" parent="." instance=ExtResource("8_1qtxl")]
-offset_left = 136.0
-offset_top = 183.0
-offset_right = 814.0
-offset_bottom = 816.0
+offset_left = 1547.0
+offset_top = 523.0
+offset_right = 2225.0
+offset_bottom = 1156.0
 initial_node_to_watch = NodePath("../Character/StateChart")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -396,7 +403,6 @@ position_smoothing_speed = 1.0
 script = ExtResource("12_gf0oy")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
 autostart = true
 
 [node name="Coin" parent="." instance=ExtResource("12_4jp5g")]

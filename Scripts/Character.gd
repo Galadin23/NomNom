@@ -2,9 +2,7 @@ extends ModularLocation
 @onready var state_chart:StateChart = $StateChart
 @onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
 @onready var chara: Dictionary = {
-	"speed": 10,
 	"jump_power":230,
-	"dive_length":2,
 	"gravity": 980,
 	"move_speed": 800,
 }
@@ -55,14 +53,15 @@ func _input(event):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
 func _process(delta):
-	print(Global.traits['magnet_enabled'])
+	if Global.
+	#print(Global.traits['magnet_enabled'])
 	if Ypos <=0 and airborn:
 		airborn = false
 		state_chart.send_event('Swimming')
 
 	# Smoothly interpolate between the current position and the real position
 	#position = lerp(position, real_pos, chara.speed * delta)
-	position.x = lerp(position.x, real_pos.x, chara.speed * delta)
+	position.x = lerp(position.x, real_pos.x, Global.traits["speed"] * delta)
 	swipe_handling()
 	move_object(delta)
 

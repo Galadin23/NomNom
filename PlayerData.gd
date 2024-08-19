@@ -89,8 +89,8 @@ class_name PlayerData
 	"energy_depletion": 0, # how fast your energy depletes (N p/s)
 	"energy": 100, # How much energy you have
 	"max_energy": 100,
-
 	"max_upgrade_energy": 300,
+
 
 	"health": 100, # whats the max healthiness you can have
 	"max_health": 100,
@@ -100,17 +100,20 @@ class_name PlayerData
 	"max_shield": 60,
 	"shield_effectivenes": 1, # How many blows the shield takes
 	"max_shield_effectiveness":3,
-
+	"shield_enabled": false,
+	
 	"magnet": 10, # How long the magnet lasts (seconds)
 	"max_magnet": 60,
-
-	"invincible": 10, # How long he's invincible (seconds)
+	"magnet_enabled": false,
+	
+	"invincible": 5, # How long he's invincible (seconds)
 	"max_invincible": 30,
+	"invincible_enabled": false,
 
 	"sleep_boost_multiplyer": 1,
 	"coin_multiplyer":1,
 	"treasure_return": false,
-	"magnet_enabled": false,
+	
 }
 
 @export var statistics: Dictionary = {

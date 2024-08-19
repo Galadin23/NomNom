@@ -3,11 +3,21 @@ extends Node
 const SAVE_DIR: String = "user://saves/"
 const SAVE_FILE_NAME: String = "save.json"
 const SECURITY_KEY: String = "089SADFH"
+
 var screen_height: int = 1920
+
 var player_data: PlayerData = PlayerData.new()
-var traits: Dictionary = {}
-var upgrades: Array = []
-var player_traits_default: Dictionary = {}
+var traits: Dictionary = {} # Traits used for upgrades in-game
+var player_traits_default: Dictionary = {} # used for a reference for in-game traits to use
+var upgrades: Array = [] # The powerups, and upgrades for the player in-game
+var current_y_pos:int = 0
+
+var game_data: Dictionary = {
+	"lives": 1,
+	"shield": 0,
+	"health": 0,
+	"energy": 0,
+}
 
 var food: Dictionary = {
 	"broccoli": {"energy": 10, "health": 5 },
@@ -24,9 +34,11 @@ func _ready():
 	
 	if traits.is_empty():
 		player_data = PlayerData.new()
-		print(player_data.traits)
 		player_traits_default = player_data.traits
 		traits = player_data.traits
+		if player_traits_default.is_empty() or traits.is_empty():
+			print("ERROR: default traits or traits is empty")
+		
 		save_data(SAVE_DIR)
 
 func verify_save_directory(path: String):
@@ -43,6 +55,7 @@ func save_data(path: String) -> void:
 			"coins": player_data.coins,
 			"gems": player_data.gems,
 			"shop": player_data.shop,
+			"statistics": player_data.statistics,
 			"traits": player_data.traits,
 		}
 	}
@@ -68,6 +81,7 @@ func load_data(path:String) -> void:
 		player_data.coins = data.player_data.health
 		player_data.gems = data.player_data.gems
 		player_data.shop = data.player_data.shop
+		player_data.statistics = data.player_data.statistics
 		player_data.traits = data.player_data.traits
 		player_traits_default = data.player_data.traits
 		
@@ -125,5 +139,9 @@ func apply_food(energy: int, health: int):
 	traits.health += ( traits.max_health * (health/100) )
 	traits.energy += ( traits.max_energy * (energy/100) )
 
+func collect_coin(amnt):
+	player_data.coins += amnt * traits.coin_multiplyer
+
 func start_game():
 	player_traits_default = traits
+

@@ -16,7 +16,15 @@ func powerup_preset(powerup_name):
 			timer.wait_time = Global.player_data.traits.magnet
 			timer.start()
 			return true
-
+		"shield":
+			status = "timer"
+			timer.wait_time = Global.traits.shield
+			timer.start()
+			upgrade("shield_enabled",1,"bool")
+			Global.game_data.shield = Global.traits.shield_effectivenes
+			return true
+		
+			
 func upgrade(attribute: String, value: float, effect_type: String):
 	power_upgrade.attribute_name = attribute
 	power_upgrade.effect_value = value
@@ -38,6 +46,6 @@ func _on_timer_timeout():
 		Global.remove_upgrade(power_upgrade)
 
 func _on_area_2d_body_entered(body):
-	var a = powerup_preset(upgrade_name)
-	if not a: 
+	var success = powerup_preset(upgrade_name)
+	if not success: 
 		upgrade(attribute,value,effect_type)
