@@ -53,6 +53,13 @@ press={
 
 pointing/emulate_touch_from_mouse=true
 
+[layer_names]
+
+2d_render/layer_1="deep_water"
+2d_render/layer_2="under_water"
+2d_render/layer_3="surface_water"
+2d_render/layer_4="above_water"
+
 [rendering]
 
 renderer/rendering_method="mobile"

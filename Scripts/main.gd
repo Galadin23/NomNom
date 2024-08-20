@@ -3,7 +3,8 @@ extends Node2D
 @export var obstacle_scene: PackedScene # Export the obstacle scene
 @export var collectable_scene: PackedScene # Export the obstacle scene
 
-@onready var player = $Character # Export the obstacle scene
+@onready var player = $Player/Character # Export the obstacle scene
+@onready var above_water = $AboveWater
 @export var num_obstacles: int = 50 # Total number of obstacles
 @export var num_collectables: int = 20 # Total number of obstacles
 
@@ -88,7 +89,7 @@ func _ready():
 		
 	for i in range(num_collectables):
 		var collectable_instance = collectable_scene.instantiate() # Create an instance of the obstacle
-		add_child(collectable_instance) # Add the obstacle to the scene
+		above_water.add_child(collectable_instance) # Add the obstacle to the scene
 		obstacles.append(collectable_instance) # Add the instance to the list	
 	position_objects()
 
@@ -147,8 +148,7 @@ func _process(delta):
 	if (player.position.y-2000) < Global.current_y_pos:
 		position_objects()
 
-func _on_timer_timeout():
-	pass
+
 
 func generate_obstacle(char: String, lane_index: int):
 	if obstacle_count < num_obstacles:

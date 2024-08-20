@@ -202,10 +202,12 @@ _data = {
 }
 
 [node name="Obstacles" type="Node2D"]
+light_mask = 4
 visibility_layer = 4
 script = ExtResource("1_ybapm")
 
 [node name="Icon" type="Sprite2D" parent="."]
+visibility_layer = 4
 texture = ExtResource("2_qydvf")
 
 [node name="Area2D" type="Area2D" parent="."]
