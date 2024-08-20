@@ -33,4 +33,5 @@ func remove():
 	position.y = 3000
 
 func _on_area_2d_body_entered(body):
+	Global.take_damage()
 	remove()

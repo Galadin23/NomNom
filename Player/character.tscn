@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bextijv66k7l"]
+[gd_scene load_steps=16 format=3 uid="uid://bextijv66k7l"]
 
 [ext_resource type="Script" path="res://Scripts/Character.gd" id="1_71xar"]
 [ext_resource type="Texture2D" uid="uid://dlcrqkr3iu7al" path="res://Assets/jump.png" id="2_4rvwx"]
@@ -62,9 +62,23 @@ tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.8),
-"transitions": PackedFloat32Array(0.210225, 1.86607, 1),
+"transitions": PackedFloat32Array(0.210225, 0.450626, 0.258816),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(1.4, 1.4), Vector2(1, 1)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"end_jumping"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_hp58f"]
@@ -123,9 +137,38 @@ tracks/1/keys = {
 "values": [Vector2(1.05, 1.05), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_1g4ib"]
+resource_name = "diving"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_e6xrm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.5, 0.5)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bp1sr"]
 _data = {
 "RESET": SubResource("Animation_711jj"),
+"diving": SubResource("Animation_1g4ib"),
 "jumping": SubResource("Animation_72nr5"),
 "running": SubResource("Animation_hp58f"),
 "swimming": SubResource("Animation_5tk4m")
@@ -153,6 +196,7 @@ autoplay = "swimming"
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("5_sflms")
+track_in_editor = true
 
 [node name="Root" type="Node" parent="StateChart"]
 script = ExtResource("6_d606h")
@@ -203,12 +247,6 @@ to = NodePath("../../Running")
 event = &"Running"
 delay_in_seconds = "0.0"
 
-[node name="To_Diving" type="Node" parent="StateChart/Root/Jumping"]
-script = ExtResource("8_s7t4i")
-to = NodePath("../../Diving")
-event = &"Diving"
-delay_in_seconds = "0.0"
-
 [node name="To_Swimming" type="Node" parent="StateChart/Root/Jumping"]
 script = ExtResource("8_s7t4i")
 to = NodePath("../../Swimming")
@@ -229,3 +267,9 @@ script = ExtResource("8_s7t4i")
 to = NodePath("../../Swimming")
 event = &"Swimming"
 delay_in_seconds = "0.0"
+
+[connection signal="timeout" from="divetimer" to="." method="_on_divetimer_timeout"]
+[connection signal="state_entered" from="StateChart/Root/Running" to="." method="_on_running_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Swimming" to="." method="_on_swimming_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Jumping" to="." method="_on_jumping_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Diving" to="." method="_on_diving_state_entered"]

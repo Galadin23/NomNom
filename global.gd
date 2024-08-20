@@ -142,6 +142,17 @@ func apply_food(energy: int, health: int):
 func collect_coin(amnt):
 	player_data.coins += amnt * traits.coin_multiplyer
 
+func shield_damage() -> bool:
+	if Global.game_data.shield>0:
+		Global.game_data.shield-=1
+		return true
+	return false
+
+func take_damage():
+	var shield_taken: bool = shield_damage()
+	if not shield_taken:
+		Global.game_data.lives -=1
+
 func start_game():
 	player_traits_default = traits
 

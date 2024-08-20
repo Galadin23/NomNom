@@ -42,8 +42,7 @@ func _input(event):
 		#grid_pos[1] -= 1
 	#elif event.is_action_pressed("ui_down"):
 		#grid_pos[1] += 1
-	if event.is_action_pressed("z") and not airborn:
-		print("Z pressed")
+	if event.is_action_pressed("z"):
 		state_chart.send_event('Diving')
 	if event.is_action_pressed("space_bar"):
 		state_chart.send_event('Jumping')
@@ -109,6 +108,7 @@ func _on_jumping_state_entered():
 func _on_diving_state_entered():
 	heightlayer = 0
 	$divetimer.start()
+	anim.play("diving")
 
 
 func _on_swimming_state_entered():
@@ -128,15 +128,7 @@ func _on_divetimer_timeout():
 func move_object(delta):
 	position.y -= chara.move_speed * delta
 
+func end_jumping():
+	state_chart.send_event("Swimming")
 
-func shield_damage() -> bool:
-	if Global.game_data.shield>0:
-		Global.game_data.shield-=1
-		return true
-	return false
-
-func take_damage():
-	var shield_taken: bool = shield_damage()
-	if not shield_taken:
-		Global.game_data.lives -=1
 
