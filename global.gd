@@ -17,6 +17,9 @@ var game_data: Dictionary = {
 	"shield": 0,
 	"health": 0,
 	"energy": 0,
+	"obstacles": ["*","0"],
+	"powerups": ["m","s"],
+	"collectables": ["$","%"],
 }
 
 var food: Dictionary = {

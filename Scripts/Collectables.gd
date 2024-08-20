@@ -4,6 +4,12 @@ extends ModularLocation
 @export var collection_type: String = ""
 @onready var collectable_image: AnimationPlayer = $AnimationPlayer
 
+func setup(icon: String):
+	match setup:
+		"$": # Money
+			pass
+		"%": # Gem
+			pass
 func handle_collection():
 	match collection_type:
 		"food":
