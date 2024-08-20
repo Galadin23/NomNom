@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://qc7v34blsn1q"]
+
+[ext_resource type="Script" path="res://Menus/ItemButton.gd" id="1_1k5ne"]
+
+[node name="Button" type="Node2D"]
+script = ExtResource("1_1k5ne")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+custom_minimum_size = Vector2(500, 150)
+
+[node name="ItemImage" type="TextureRect" parent="Control/PanelContainer"]
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="InfoHBox" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Label2" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8

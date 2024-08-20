@@ -26,6 +26,7 @@ func _ready():
 		#var item_btn = Label.new()
 		#item_btn.text = item_name
 		var item_btn = item_button.instantiate()
+		item_btn.name = item_name
 		print(item_btn.position)
 		$ColorRect/VBoxMain/ItemScrollbar/ItemsContainer.add_child(item_btn)
 

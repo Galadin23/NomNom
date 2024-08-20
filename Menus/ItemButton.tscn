@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://dm8oq5punpb24"]
+[gd_scene load_steps=2 format=3 uid="uid://dm8oq5punpb24"]
+
+[ext_resource type="Script" path="res://Menus/ItemButton.gd" id="1_x5266"]
 
 [node name="ItemButton" type="Control"]
 layout_mode = 3
@@ -7,9 +9,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_x5266")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(500, 150)
+layout_mode = 0
 
 [node name="ItemImage" type="TextureRect" parent="PanelContainer"]
 layout_mode = 2

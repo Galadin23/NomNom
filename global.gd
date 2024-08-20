@@ -156,6 +156,10 @@ func take_damage():
 	if not shield_taken:
 		Global.game_data.lives -=1
 
+func purchase_item(item: String):
+	pass
+
+
 func start_game():
 	player_traits_default = traits
 

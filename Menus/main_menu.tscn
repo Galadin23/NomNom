@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbpxgnpswhy4j"]
+[gd_scene load_steps=11 format=3 uid="uid://bbpxgnpswhy4j"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_gvpn2"]
 [ext_resource type="Texture2D" uid="uid://b6igxri0a4vvd" path="res://Assets/Buttons/test_logo.png" id="2_ahfay"]
 [ext_resource type="Texture2D" uid="uid://csi5ynhtajatg" path="res://Assets/Buttons/test_playbutton.png" id="3_hxlha"]
 [ext_resource type="Texture2D" uid="uid://otvgk8ltissh" path="res://Assets/Buttons/test_playbutton_hover.png" id="4_yg0su"]
+[ext_resource type="Script" path="res://Menus/StatsButton.gd" id="5_bsy16"]
 [ext_resource type="Texture2D" uid="uid://pamiluadnc8i" path="res://Assets/Buttons/test_statsbutton.png" id="5_wckpq"]
 [ext_resource type="Texture2D" uid="uid://7bee04783png" path="res://Assets/Buttons/test_statsbutton_hover.png" id="6_rvn4i"]
 [ext_resource type="Texture2D" uid="uid://dsbpy40hu1a23" path="res://Assets/Buttons/test_shopbutton.png" id="7_emqhb"]
@@ -65,6 +66,7 @@ size_flags_vertical = 4
 layout_mode = 2
 texture_normal = ExtResource("5_wckpq")
 texture_hover = ExtResource("6_rvn4i")
+script = ExtResource("5_bsy16")
 
 [node name="ShopButton" type="TextureButton" parent="ColorRect/MarginContainer/VBoxButtons"]
 layout_mode = 2

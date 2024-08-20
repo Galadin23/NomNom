@@ -106,11 +106,11 @@ func position_objects() -> void:
 			
 			if char != '-' and char != ' ': # Check if it's not an empty space
 				if char in Global.game_data.obstacles:
-					generate_obstacle(char)
+					generate_obstacle(char, lane_index)
 				elif char in Global.game_data.powerups:
-					generate_powerups(char)
+					generate_powerups(char, lane_index)
 				elif char in Global.game_data.collectables:
-					generate_collectables(char)
+					generate_collectables(char, lane_index)
 
 		Global.current_y_pos -= spacing
 
@@ -150,7 +150,7 @@ func _process(delta):
 func _on_timer_timeout():
 	pass
 
-func generate_obstacle(char: String):
+func generate_obstacle(char: String, lane_index: int):
 	if obstacle_count < num_obstacles:
 		obstacles[obstacle_count].position.y = Global.current_y_pos
 		obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
@@ -161,10 +161,10 @@ func generate_obstacle(char: String):
 		print("RAN OUT OF OBSTACLES")
 		obstacle_count = 0
 
-func generate_powerups(char: String):
+func generate_powerups(char: String, lane_index: int):
 	pass
 
-func generate_collectables(char: String):
+func generate_collectables(char: String, lane_index: int):
 	if collectable_count < num_collectables:
 		collectables[collectable_count].position.y = Global.current_y_pos
 		collectables[collectable_count].choose_lane(lane_index+1) # Set the collectable to the chosen lane

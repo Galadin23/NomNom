@@ -1,6 +1,7 @@
 extends ModularLocation
 @onready var state_chart:StateChart = $StateChart
 @onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
+@onready var icon: Sprite2D = $CharacterBody2D/Icon
 @onready var chara: Dictionary = {
 	"jump_power":230,
 	"gravity": 980,
@@ -102,22 +103,26 @@ func _on_jumping_state_entered():
 	airborn = true
 	heightlayer +=1
 	Ypos = 20
+	self.z_index = 2
 	anim.play("jumping")
 
 
 func _on_diving_state_entered():
 	heightlayer = 0
+	self.z_index = -1
 	$divetimer.start()
 	anim.play("diving")
 
 
 func _on_swimming_state_entered():
 	heightlayer = 1
+	self.z_index = 1
 	anim.play("swimming")
 
 
 func _on_running_state_entered():
 	heightlayer = 2
+	self.z_index = 2
 	anim.play("running")
 
 
