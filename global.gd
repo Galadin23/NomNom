@@ -157,7 +157,8 @@ func take_damage():
 		Global.game_data.lives -=1
 
 func purchase_item(item: String):
-	pass
+	Global.player_data.shop[item]["purchased"] = true
+	Global.player_data.coins -= Global.player_data.shop[item]["cost"]
 
 
 func start_game():

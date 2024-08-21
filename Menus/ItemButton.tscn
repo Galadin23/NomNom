@@ -8,8 +8,10 @@ script = ExtResource("1_x5266")
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
 custom_minimum_size = Vector2(500, 150)
@@ -31,11 +33,13 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
+[node name="ItemName" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label2" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
+[node name="ItemPrice" type="Label" parent="Control/PanelContainer/MarginContainer/InfoHBox"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 8
+
+[connection signal="gui_input" from="Control/PanelContainer" to="." method="_on_panel_container_gui_input"]

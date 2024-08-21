@@ -1,34 +1,33 @@
 extends Control
 
 var item_button = preload("res://Menus/ItemButton.tscn")
-# Adds item to player inventory and subtracts the gold.
-func buy_item(item_id):
-	# Check if item is valid
-	if item_id not in Global.player_data.shop:
-		printerr("item does not exist")
-		return
-	var item = Global.player_data.shop[item_id]
-	if item["purchased"]:
-		return
-	if item["cost"] > Global.player_data.coins:
-		print("not enough money")
-		return
-	else:
-		Global.player_data.shop[item_id]["purchased"] = true
-		Global.player_data.gold -= item["cost"]
-	
-	
+var MARGIN_SIZE: int = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	for shop_item in Global.player_data.shop.keys():
 		var item_name = Global.player_data.shop[shop_item]["name"]
-		#var item_btn = Label.new()
-		#item_btn.text = item_name
+		var item_price = Global.player_data.shop[shop_item]["cost"]
+		
 		var item_btn = item_button.instantiate()
-		item_btn.name = item_name
-		print(item_btn.position)
-		$ColorRect/VBoxMain/ItemScrollbar/ItemsContainer.add_child(item_btn)
+		item_btn.item_name = shop_item
+		print(item_btn.name)
+		item_btn.get_node("Control/PanelContainer/MarginContainer/InfoHBox/ItemName").text = str(item_name)
+		
+		if Global.player_data.shop[shop_item]["purchased"]:
+			item_btn.get_node("Control/PanelContainer/MarginContainer/InfoHBox/ItemPrice").text = "Owned"
+		else:
+			item_btn.get_node("Control/PanelContainer/MarginContainer/InfoHBox/ItemPrice").text = str(item_price)
+		
+		var margin_box = MarginContainer.new()
+		margin_box.add_theme_constant_override("margin_top", MARGIN_SIZE)
+		margin_box.add_theme_constant_override("margin_left", MARGIN_SIZE)
+		margin_box.add_theme_constant_override("margin_bottom", MARGIN_SIZE)
+		margin_box.add_theme_constant_override("margin_right", MARGIN_SIZE)
+		
+		margin_box.add_child(item_btn)
+		$ColorRect/VBoxMain/ItemScrollbar/ItemsContainer.add_child(margin_box)
+		print(item_btn.item_name)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -37,10 +36,3 @@ func _process(delta):
 
 func _on_back_button_pressed():
 	get_tree().change_scene_to_file("res://Menus/main_menu.tscn")
-
-
-func _on_panel_container_gui_input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("item clicked")
-

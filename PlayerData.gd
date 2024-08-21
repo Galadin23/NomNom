@@ -3,7 +3,7 @@ class_name PlayerData
 # ALL DATA NUMBERS HERE ARE DEFAULT WHEN USER HAS A NEW GAME
 
 
-@export var coins: int = 200
+@export var coins: int = 2000
 @export var gems: int = 5
 @export var equipped_hat: String = "none"
 @export var shop: Dictionary = {
