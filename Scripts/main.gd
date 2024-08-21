@@ -395,9 +395,11 @@ func position_objects() -> void:
 				if char in Global.game_data.obstacles:
 					generate_obstacle(char, lane_index)
 				elif char in Global.game_data.powerups:
-					generate_powerups(char, lane_index)
+					pass
+					#generate_powerups(char, lane_index)
 				elif char in Global.game_data.collectables:
-					generate_collectables(char, lane_index)
+					pass
+					#generate_collectables(char, lane_index)
 
 		Global.current_y_pos -= spacing
 

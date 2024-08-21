@@ -5,10 +5,11 @@ extends Node2D
 @export var time_wait: float = 1
 @export var effect_type = ""
 @export var status: String = ""
+
 var possible_status: Array = ["permanent","timer","expired"]
 @onready var timer:Timer = $Timer
 @onready var power_upgrade = AbilityUpgrade.new()
-
+@onready var anim = $AnimationPlayer
 func powerup_preset(powerup_name):
 	
 	if powerup_name ==	"magnet" or powerup_name ==	"m":
@@ -43,6 +44,10 @@ func set_status(new_status) -> void:
 
 func get_status():
 	return status
+
+func set_up():
+	if upgrade_name ==	"magnet" or upgrade_name ==	"m":
+		anim.play("magnet")
 
 func _on_timer_timeout():
 	if status == "timer":
