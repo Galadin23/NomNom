@@ -2,22 +2,27 @@ extends Node2D
 
 @export var obstacle_scene: PackedScene # Export the obstacle scene
 @export var collectable_scene: PackedScene # Export the obstacle scene
+@export var powerup_scene: PackedScene # Export the obstacle scene
 
 @onready var player = $Player/Character # Export the obstacle scene
 @onready var above_water = $AboveWater
+
 @export var num_obstacles: int = 50 # Total number of obstacles
-@export var num_collectables: int = 20 # Total number of obstacles
+@export var num_collectables: int = 50 # Total number of collectables
+@export var num_powerups: int = 10 # Total number of powerups
 
 @export var spacing: int = 300 # Spacing between obstacles
 
 @export var min_empty_space: int = 1 # Minimum number of empty spaces to add
 @export var max_empty_space: int = 3 # Maximum number of empty spaces to add
 
-var obstacle_count: int = 0
-var collectable_count: int = 0
+var obstacle_count: int = 0  # What obstacle is selected
+var collectable_count: int = 0 # What collectable is selected
+var powerup_count: int = 0 # What powerup is selected
 
 var obstacles: Array = [] # List to hold obstacle instances
-var collectables:Array =[]
+var collectables:Array =[] # List to hold collectable instances
+var powerups: Array = [] # List to hold powerup instances
 
 var spawn_queue:Array = [] # List to hold the queue of patterns
 var start_y_pos: int = 200
@@ -78,6 +83,281 @@ var patterns: Array = [
 		[' 00'],
 		['   '],
 	],
+
+	[
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+	],
+	[
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+	],
+	[
+		[' $ '],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		[' $ '],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		[' $ '],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		[' $ '],
+		[' $ '],
+	],
+	[
+		['---'],
+		['$$$'],
+		['-$-'],
+		['$$$'],
+		['-$-'],
+		['$$$'],
+		['-$-'],
+		['$$$'],
+		['---'],
+	],
+	[
+		['$$$'],
+		['-$-'],
+		['-$-'],
+		['$$$'],
+		['-$-'],
+		['$$$'],
+		['-$-'],
+		['-$-'],
+		['$$$'],
+	],
+	[
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+		['$$-'],
+	],
+	[
+		['---'],
+		['-$-'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['$$$'],
+		['-$-'],
+		['-$-'],
+		['$$$'],
+	],
+	[
+		['$$$'],
+		['$$-'],
+		['-$-'],
+		['-$-'],
+		['$$-'],
+		['$$$'],
+		['-$-'],
+		['-$-'],
+		['$$-'],
+		['$$$'],
+	],
+	[
+		[' $ '],
+		[' $ '],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		[' $ '],
+	],
+	[
+		['$$$'],
+		[' $ '],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+		['$$$'],
+		['$$$'],
+		[' $ '],
+		['-$-'],
+		['-$-'],
+	],
+
+	# New coin and rock big course patterns
+	[
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+	],
+	[
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+		['0-$'],
+	],
+	[
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+		['-$0'],
+	],
+	[
+		['-$-'],
+		['0-$'],
+		['0$0'],
+		['-$0'],
+		['0-$'],
+		['0$0'],
+		['-$0'],
+		['0-$'],
+		['0$0'],
+		['-$0'],
+		['0-$'],
+	],
+	[
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['-$-'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+		['0$0'],
+	],
+	[
+		['0$$'],
+		['0$$'],
+		['0$$'],
+		['0$$'],
+		['0$$'],
+		['0$$'],
+		['0$$'],
+	],
+	[
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+		['$$0'],
+	],
+	[
+		['$$$'],
+		['0$$'],
+		['0$0'],
+		['$$0'],
+		['0$$'],
+		['0$0'],
+		['$$0'],
+		['0$$'],
+		['0$0'],
+		['$$0'],
+		['0$$'],
+		['0$0'],
+	],
+	[
+		['-$0'],
+		['0$$'],
+		['-$-'],
+		['-$0'],
+		['-$0'],
+		['-$-'],
+		['0$$'],
+		['0$0'],
+		['-$0'],
+		['0$0'],
+		['-$-'],
+		['-$0'],
+	],
+	[
+		['$$$'],
+		['$$-'],
+		['0$$'],
+		['-$0'],
+		['0$0'],
+		['$$$'],
+		['$$0'],
+		['$$-'],
+		['0$$'],
+		['-$0'],
+	],
+	[
+		['0$$'],
+		['-$-'],
+		['-$-'],
+		['-$0'],
+		['0$$'],
+		['-$-'],
+		['$$$'],
+		['$$0'],
+		['-$0'],
+		['$$$'],
+	],
+
+]
+var in_between_coins = [
+	['-$-'],
+	['$$$'],
+	['-$-'],
+	['$--'],
+	['-$-'],
+	['$$-'],
+	['-$-'],
+	['--$'],
+	['$$$'],
+	['$--'],
+	['-$-'],
+	[' $ '],
+	['--$'],
+	['--$'],
+	['--$'],
+	['-$-'],
+	['$--'],
+	['$--'],
 ]
 
 func _ready():
@@ -91,6 +371,12 @@ func _ready():
 		var collectable_instance = collectable_scene.instantiate() # Create an instance of the obstacle
 		above_water.add_child(collectable_instance) # Add the obstacle to the scene
 		obstacles.append(collectable_instance) # Add the instance to the list	
+
+	for i in range(num_powerups):
+		var powerup_instance = powerup_scene.instantiate() # Create an instance of the obstacle
+		above_water.add_child(powerup_instance) # Add the obstacle to the scene
+		powerups.append(powerup_instance) # Add the instance to the list	
+	
 	position_objects()
 
 func position_objects() -> void:
@@ -115,6 +401,16 @@ func position_objects() -> void:
 
 		Global.current_y_pos -= spacing
 
+func handle_empty(empty_size):
+	for i in range(empty_size):
+		if randi() % 2 == 0:  # 50% chance to add in-between coins instead of blank space
+			for j in range(i):
+				var coin_index: int = randi() % in_between_coins.size()
+				spawn_queue.append(in_between_coins[coin_index][0])
+		else:
+			spawn_queue.append('---')
+
+
 func queue():
 	var pattern_index: int = randi() % patterns.size() # Choose a random pattern
 	var pattern = patterns[pattern_index] # Get the chosen pattern
@@ -125,17 +421,16 @@ func queue():
 		var empty_after: int = randi() % (max_empty_space - min_empty_space + 1) + min_empty_space
 
 		# Add empty spaces before
-		for i in range(empty_before):
-			spawn_queue.append('---')
+		handle_empty(empty_before)
 		
 		# Add the actual pattern
 		for row in range(pattern.size() - 1, -1, -1):
 			for line in pattern[row]:
 				spawn_queue.append(line)
 		
-		# Add empty spaces after
-		for i in range(empty_after):
-			spawn_queue.append('---')
+		# Add empty spaces or in-between coins after
+		handle_empty(empty_after)
+		
 	else:
 		for row in range(pattern.size() - 1, -1, -1):
 			for line in pattern[row]:
@@ -162,14 +457,22 @@ func generate_obstacle(char: String, lane_index: int):
 		obstacle_count = 0
 
 func generate_powerups(char: String, lane_index: int):
-	pass
+	if powerup_count < num_powerups:
+		powerups[powerup_count].position.y = Global.current_y_pos
+		powerups[powerup_count].choose_lane(lane_index+1) # Set the collectable to the chosen lane
+		powerups[powerup_count].powerup_preset(char)
+		powerup_count += 1
+	if powerup_count >= num_powerups-1:
+		print("RAN OUT OF POWERUPS")
+		powerup_count = 0
+
 
 func generate_collectables(char: String, lane_index: int):
 	if collectable_count < num_collectables:
 		collectables[collectable_count].position.y = Global.current_y_pos
 		collectables[collectable_count].choose_lane(lane_index+1) # Set the collectable to the chosen lane
 		collectables[collectable_count].enabled = true # Enable the collectable
-		collectables[collectable_count].setup(char)
+
 		# INSERT FUNCTION TO DETERMINE WHAT COLLECTABLE IT IS
 		collectable_count += 1
 	if collectable_count >= num_collectables-1:

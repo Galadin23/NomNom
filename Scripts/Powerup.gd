@@ -2,6 +2,7 @@ extends Node2D
 @export var upgrade_name = "" # what the name of the upgrade is
 @export var attribute = ""
 @export var value: float = 1
+@export var time_wait: float = 1
 @export var effect_type = ""
 @export var status: String = ""
 var possible_status: Array = ["permanent","timer","expired"]
@@ -9,14 +10,14 @@ var possible_status: Array = ["permanent","timer","expired"]
 @onready var power_upgrade = AbilityUpgrade.new()
 
 func powerup_preset(powerup_name):
-	match powerup_name:
-		"magnet":
+	
+	if powerup_name ==	"magnet" or powerup_name ==	"m":
 			upgrade("magnet_enabled",1,"bool")
 			status = "timer"
 			timer.wait_time = Global.player_data.traits.magnet
 			timer.start()
 			return true
-		"shield":
+	if powerup_name ==	"shield" or powerup_name ==	"s":
 			status = "timer"
 			timer.wait_time = Global.traits.shield
 			timer.start()
@@ -29,6 +30,9 @@ func upgrade(attribute: String, value: float, effect_type: String):
 	power_upgrade.attribute_name = attribute
 	power_upgrade.effect_value = value
 	power_upgrade.effect_type = effect_type
+	if status == "timer":
+		timer.wait_time = Global.player_data.traits.magnet
+		timer.start()
 	Global.add_upgrade(power_upgrade)
 
 func set_status(new_status) -> void:
