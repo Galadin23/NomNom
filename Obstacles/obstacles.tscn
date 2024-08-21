@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bard0614bs1ui"]
+[gd_scene load_steps=14 format=3 uid="uid://bard0614bs1ui"]
 
 [ext_resource type="Script" path="res://Scripts/Obstacles.gd" id="1_ybapm"]
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="2_qydvf"]
-[ext_resource type="Texture2D" uid="uid://bfv5jll08lmgc" path="res://Assets/clipart542554.png" id="3_4xjlq"]
+[ext_resource type="Texture2D" uid="uid://dr2hwqds03xw1" path="res://Assets/lillypad.png" id="3_mivqu"]
 [ext_resource type="Texture2D" uid="uid://bsc3q3mdq0lxe" path="res://Assets/rock-edge.png" id="3_nel0b"]
 [ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/Rock.png" id="5_dtttk"]
+[ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/rock.png" id="6_im00e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rcktw"]
-radius = 43.0465
+radius = 156.818
 
 [sub_resource type="Animation" id="Animation_dfud4"]
 resource_name = "*"
@@ -21,7 +22,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_4xjlq")]
+"values": [ExtResource("3_mivqu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -33,46 +34,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.222375, 0.222375)]
-}
-
-[sub_resource type="Animation" id="Animation_e78mg"]
-resource_name = "01"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Icon:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("3_nel0b")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Icon:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-1.5, 1.5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Icon:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_nr073"]
@@ -192,10 +154,49 @@ tracks/2/keys = {
 "values": [Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_e78mg"]
+resource_name = "0"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Icon:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_im00e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Icon:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Icon:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rsqrb"]
 _data = {
 "*": SubResource("Animation_dfud4"),
-"01": SubResource("Animation_e78mg"),
+"0": SubResource("Animation_e78mg"),
 "02": SubResource("Animation_nr073"),
 "03": SubResource("Animation_4enqd"),
 "RESET": SubResource("Animation_bdn3s")

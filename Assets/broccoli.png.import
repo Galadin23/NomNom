@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw0ai1dx0606x"
-path="res://.godot/imported/rock.png-f424558c80aad50edd6b527d0f995fb1.ctex"
+uid="uid://dcb6n7lnyuync"
+path="res://.godot/imported/broccoli.png-8a1170790a77da81eba1a8d2c41f8f64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/rock.png"
-dest_files=["res://.godot/imported/rock.png-f424558c80aad50edd6b527d0f995fb1.ctex"]
+source_file="res://Assets/broccoli.png"
+dest_files=["res://.godot/imported/broccoli.png-8a1170790a77da81eba1a8d2c41f8f64.ctex"]
 
 [params]
 

@@ -3,6 +3,9 @@ extends ModularLocation
 var lanes: int = 0
 var move_speed = 800.0 # Speed of movement downwards
 var current_lane = 0
+var dangerous = false
+var obstacle_height = []
+var will_be_destroyed = false
 @onready var player = $AnimationPlayer
 @onready var enabled = false
 
@@ -27,11 +30,23 @@ func do_setup():
 	
 func choose_look(char:String):
 	player.play(char)
+	if char == "0":
+		obstacle_height = [0,1,2]
+		dangerous = true
+	elif char == "*":
+		obstacle_height = [1]
 
 func remove():
 	enabled = false
+	dangerous = false
+	will_be_destroyed = false
 	position.y = 3000
 
 func _on_area_2d_body_entered(body):
-	Global.take_damage()
-	remove()
+	if dangerous == false and body.get_parent().heightlayer == 0:
+		will_be_destroyed = true
+	if dangerous == false and body.get_parent().heightlayer == 1 and will_be_destroyed == true:
+		remove()
+	if dangerous and body.get_parent().heightlayer in obstacle_height:
+		Global.take_damage()
+		remove()

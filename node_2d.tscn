@@ -70,9 +70,11 @@ texture = ExtResource("4_lcthc")
 centered = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="BackgroundWater"]
+visible = false
 motion_mirroring = Vector2(2160, 3840)
 
 [node name="Water" type="Sprite2D" parent="BackgroundWater/ParallaxLayer"]
+visible = false
 modulate = Color(1, 1, 1, 0.839216)
 texture_filter = 1
 texture_repeat = 2
@@ -80,25 +82,29 @@ texture = ExtResource("4_mqn5n")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="BackgroundWater"]
+visible = false
 z_index = 5
 motion_mirroring = Vector2(0, 3840)
 
 [node name="Water" type="Sprite2D" parent="BackgroundWater/ParallaxLayer4"]
+visible = false
 modulate = Color(1, 1, 1, 0.839216)
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("14_kqfeq")
 centered = false
 
-[node name="UnderWater" type="CanvasLayer" parent="."]
-layer = -1
+[node name="Player" type="CanvasLayer" parent="."]
+layer = 2
+follow_viewport_enabled = true
+
+[node name="Character" parent="Player" node_paths=PackedStringArray("canvas_layer") instance=ExtResource("8_mxbkv")]
+canvas_layer = NodePath("..")
 
 [node name="ParallaxWater" type="ParallaxBackground" parent="."]
 layer = 0
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxWater"]
-z_index = -2
-z_as_relative = false
 motion_mirroring = Vector2(2160, 3840)
 
 [node name="Water" type="Sprite2D" parent="ParallaxWater/ParallaxLayer"]
@@ -109,26 +115,17 @@ texture_repeat = 2
 texture = ExtResource("4_mqn5n")
 centered = false
 
-[node name="AboveWater" type="CanvasLayer" parent="."]
-
-[node name="Player" type="CanvasLayer" parent="."]
-layer = 0
-follow_viewport_enabled = true
-
-[node name="Character" parent="Player" instance=ExtResource("8_mxbkv")]
-
-[node name="ParallaxForeground" type="ParallaxBackground" parent="."]
-layer = 2
-
-[node name="ParallaxLand" type="ParallaxLayer" parent="ParallaxForeground"]
+[node name="ParallaxLand" type="ParallaxLayer" parent="ParallaxWater"]
 z_index = 5
 z_as_relative = false
 motion_mirroring = Vector2(0, 3840)
 
-[node name="Land" type="Sprite2D" parent="ParallaxForeground/ParallaxLand"]
-modulate = Color(1, 1, 1, 0.839216)
+[node name="Land" type="Sprite2D" parent="ParallaxWater/ParallaxLand"]
 z_index = -1
 texture_filter = 1
 texture_repeat = 2
 texture = ExtResource("14_kqfeq")
 centered = false
+
+[node name="AboveWater" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true

@@ -84,7 +84,7 @@ func _ready():
 	# Create and add obstacles to the scene
 	for i in range(num_obstacles):
 		var obstacle_instance = obstacle_scene.instantiate() # Create an instance of the obstacle
-		add_child(obstacle_instance) # Add the obstacle to the scene
+		above_water.add_child(obstacle_instance) # Add the obstacle to the scene
 		obstacles.append(obstacle_instance) # Add the instance to the list
 		
 	for i in range(num_collectables):

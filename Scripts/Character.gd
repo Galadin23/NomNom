@@ -1,4 +1,6 @@
 extends ModularLocation
+
+@export  var canvas_layer: CanvasLayer
 @onready var state_chart:StateChart = $StateChart
 @onready var anim: AnimationPlayer = $CharacterBody2D/AnimationPlayer
 @onready var icon: Sprite2D = $CharacterBody2D/Icon
@@ -101,28 +103,31 @@ func swipe_handling():
 
 func _on_jumping_state_entered():
 	airborn = true
-	heightlayer +=1
+	if heightlayer == 2:
+		heightlayer += 1
+	else: 
+		heightlayer = 2
 	Ypos = 20
-	self.z_index = 2
+	canvas_layer.layer += 1
 	anim.play("jumping")
 
 
 func _on_diving_state_entered():
 	heightlayer = 0
-	self.z_index = -1
+	canvas_layer.layer = 0
 	$divetimer.start()
 	anim.play("diving")
 
 
 func _on_swimming_state_entered():
 	heightlayer = 1
-	self.z_index = 1
+	canvas_layer.layer = 1
 	anim.play("swimming")
 
 
 func _on_running_state_entered():
 	heightlayer = 2
-	self.z_index = 2
+	canvas_layer.layer = 2
 	anim.play("running")
 
 
