@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=19 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_xkq87"]
 [ext_resource type="Texture2D" uid="uid://ce3yggudv31fv" path="res://Assets/sand_large.png" id="3_g4hby"]
@@ -8,9 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://bextijv66k7l" path="res://Player/character.tscn" id="8_mxbkv"]
 [ext_resource type="PackedScene" uid="uid://bard0614bs1ui" path="res://Obstacles/obstacles.tscn" id="10_6u8qc"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="12_gf0oy"]
+[ext_resource type="Shader" path="res://node_2d.gdshader" id="13_2qwkd"]
+[ext_resource type="Texture2D" uid="uid://di0ftwvy6miip" path="res://Assets/burger.png" id="13_oshmt"]
 [ext_resource type="Texture2D" uid="uid://df2qmcbom36xq" path="res://Assets/water_edge_long.png" id="14_kqfeq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
+[ext_resource type="Texture2D" uid="uid://dhjdfr7xiymbu" path="res://Assets/noise.png" id="15_u2xai"]
 [ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
 
 [sub_resource type="Resource" id="Resource_edwxm"]
@@ -18,6 +21,14 @@ script = ExtResource("15_ksqwx")
 duration = 1.0
 transition = 0
 ease = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jtx51"]
+shader = ExtResource("13_2qwkd")
+
+[sub_resource type="Curve" id="Curve_ii24e"]
+max_value = 1024.0
+_data = [Vector2(0, 1), 0.0, 2967.29, 0, 0, Vector2(0.274194, 1024), 0.0, 0.0, 0, 0, Vector2(0.766129, 1024), 0.000275213, 0.000275213, 0, 0, Vector2(1, 1024), -6.40165, 0.0, 0, 0]
+point_count = 4
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_xkq87")
@@ -117,6 +128,12 @@ texture_repeat = 2
 texture = ExtResource("4_mqn5n")
 centered = false
 
+[node name="Noise" type="Sprite2D" parent="ParallaxWater"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_jtx51")
+position = Vector2(522, 568)
+texture = ExtResource("15_u2xai")
+
 [node name="ParallaxLand" type="ParallaxLayer" parent="ParallaxWater"]
 z_index = 5
 z_as_relative = false
@@ -131,3 +148,19 @@ centered = false
 
 [node name="AboveWater" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="UI"]
+position = Vector2(513, 1262)
+scale = Vector2(-15.5096, 70.9988)
+lifetime = 5.0
+texture = ExtResource("13_oshmt")
+direction = Vector2(-1, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 83.33
+initial_velocity_max = 83.33
+damping_min = 50.0
+damping_max = 50.0
+damping_curve = SubResource("Curve_ii24e")

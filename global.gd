@@ -17,6 +17,8 @@ var game_data: Dictionary = {
 	"shield": 0,
 	"health": 0,
 	"energy": 0,
+	"coins":0
+	"gems": 0
 	"obstacles": ["*","0"],
 	"powerups": ["m","s"],
 	"collectables": ["$","%"],
@@ -24,10 +26,10 @@ var game_data: Dictionary = {
 
 var food: Dictionary = {
 	"broccoli": {"energy": 10, "health": 5 },
-	"fries": {"energy": 15, "health": -10 },
+	# "fries": {"energy": 15, "health": -10 },
 	"burger": {"energy": 20, "health": -15 },
-	"fruit_bowl": {"energy": 20, "health": 15 },
-	"golden_apple": {"energy": 50, "health": 50 },
+	# "fruit_bowl": {"energy": 20, "health": 15 },
+	# "golden_apple": {"energy": 50, "health": 50 },
 }
 
 
@@ -142,8 +144,13 @@ func apply_food(energy: int, health: int):
 	traits.health += ( traits.max_health * (health/100) )
 	traits.energy += ( traits.max_energy * (energy/100) )
 
-func collect_coin(amnt):
-	player_data.coins += amnt * traits.coin_multiplyer
+func collect_money(type, amnt):
+	match type:
+		"coin": 
+			game_data.coins += amnt * traits.coin_multiplyer # Always make sure its duplicates of 2
+		"gem":
+			game_data.gem += amnt
+
 
 func shield_damage() -> bool:
 	if Global.game_data.shield>0:

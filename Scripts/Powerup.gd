@@ -32,7 +32,7 @@ func upgrade(attribute: String, value: float, effect_type: String):
 	power_upgrade.effect_value = value
 	power_upgrade.effect_type = effect_type
 	if status == "timer":
-		timer.wait_time = Global.player_data.traits.magnet
+		timer.wait_time = time_wait
 		timer.start()
 	Global.add_upgrade(power_upgrade)
 
@@ -45,7 +45,8 @@ func set_status(new_status) -> void:
 func get_status():
 	return status
 
-func set_up():
+func set_up(name):
+	upgrade_name = name
 	if upgrade_name ==	"magnet" or upgrade_name ==	"m":
 		anim.play("magnet")
 
