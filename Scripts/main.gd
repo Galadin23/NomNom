@@ -362,20 +362,20 @@ var in_between_coins = [
 
 func _ready():
 	# Create and add obstacles to the scene
-	for i in range(num_obstacles):
-		var obstacle_instance = obstacle_scene.instantiate() # Create an instance of the obstacle
-		above_water.add_child(obstacle_instance) # Add the obstacle to the scene
-		obstacles.append(obstacle_instance) # Add the instance to the list
-		
-	for i in range(num_collectables):
-		var collectable_instance = collectable_scene.instantiate() # Create an instance of the obstacle
-		above_water.add_child(collectable_instance) # Add the obstacle to the scene
-		obstacles.append(collectable_instance) # Add the instance to the list	
-
-	for i in range(num_powerups):
-		var powerup_instance = powerup_scene.instantiate() # Create an instance of the obstacle
-		above_water.add_child(powerup_instance) # Add the obstacle to the scene
-		powerups.append(powerup_instance) # Add the instance to the list	
+	#for i in range(num_obstacles):
+		#var obstacle_instance = obstacle_scene.instantiate() # Create an instance of the obstacle
+		#above_water.add_child(obstacle_instance) # Add the obstacle to the scene
+		#obstacles.append(obstacle_instance) # Add the instance to the list
+		#
+	#for i in range(num_collectables):
+		#var collectable_instance = collectable_scene.instantiate() # Create an instance of the obstacle
+		#above_water.add_child(collectable_instance) # Add the obstacle to the scene
+		#collectables.append(collectable_instance) # Add the instance to the list	
+#
+	#for i in range(num_powerups):
+		#var powerup_instance = powerup_scene.instantiate() # Create an instance of the obstacle
+		#above_water.add_child(powerup_instance) # Add the obstacle to the scene
+		#powerups.append(powerup_instance) # Add the instance to the list	
 	
 	position_objects()
 
@@ -399,7 +399,7 @@ func position_objects() -> void:
 					#generate_powerups(char, lane_index)
 				elif char in Global.game_data.collectables:
 					pass
-					#generate_collectables(char, lane_index)
+					generate_collectables(char, lane_index)
 
 		Global.current_y_pos -= spacing
 
@@ -448,15 +448,21 @@ func _process(delta):
 
 
 func generate_obstacle(char: String, lane_index: int):
-	if obstacle_count < num_obstacles:
-		obstacles[obstacle_count].position.y = Global.current_y_pos
-		obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
-		obstacles[obstacle_count].enabled = true # Enable the obstacle
-		obstacles[obstacle_count].choose_look(char)
-		obstacle_count += 1
-	if obstacle_count >= num_obstacles-1:
-		print("RAN OUT OF OBSTACLES")
-		obstacle_count = 0
+	var new_obstacle = obstacle_scene.instantiate() # Create an instance of the obstacle
+	new_obstacle.position.y = Global.current_y_pos
+	new_obstacle.char = char
+	new_obstacle.choose_lane(lane_index+1) # Set the obstacle to the chosen lane
+	above_water.add_child(new_obstacle) # Add the obstacle to the scene
+	
+	#if obstacle_count < num_obstacles:
+		#obstacles[obstacle_count].position.y = Global.current_y_pos
+		#obstacles[obstacle_count].choose_lane(lane_index+1) # Set the obstacle to the chosen lane
+		#obstacles[obstacle_count].enabled = true # Enable the obstacle
+		#obstacles[obstacle_count].choose_look(char)
+		#obstacle_count += 1
+	#if obstacle_count >= num_obstacles-1:
+		#print("RAN OUT OF OBSTACLES")
+		#obstacle_count = 0
 
 func generate_powerups(char: String, lane_index: int):
 	if powerup_count < num_powerups:
@@ -470,13 +476,19 @@ func generate_powerups(char: String, lane_index: int):
 
 
 func generate_collectables(char: String, lane_index: int):
-	if collectable_count < num_collectables:
-		collectables[collectable_count].position.y = Global.current_y_pos
-		collectables[collectable_count].choose_lane(lane_index+1) # Set the collectable to the chosen lane
-		collectables[collectable_count].enabled = true # Enable the collectable
-
-		# INSERT FUNCTION TO DETERMINE WHAT COLLECTABLE IT IS
-		collectable_count += 1
-	if collectable_count >= num_collectables-1:
-		print("RAN OUT OF COLLECTABLES")
-		collectable_count = 0
+	var new_collectable = collectable_scene.instantiate() # Create an instance of the obstacle
+	new_collectable.position.y = Global.current_y_pos
+	new_collectable.char = char
+	new_collectable.choose_lane(lane_index+1) # Set the obstacle to the chosen lane
+	above_water.add_child(new_collectable) # Add the obstacle to the scene
+	
+	#if collectable_count < num_collectables:
+		#collectables[collectable_count].position.y = Global.current_y_pos
+		#collectables[collectable_count].choose_lane(lane_index+1) # Set the collectable to the chosen lane
+		##collectables[collectable_count].enabled = true # Enable the collectable
+#
+		## INSERT FUNCTION TO DETERMINE WHAT COLLECTABLE IT IS
+		#collectable_count += 1
+	#if collectable_count >= num_collectables-1:
+		#print("RAN OUT OF COLLECTABLES")
+		#collectable_count = 0

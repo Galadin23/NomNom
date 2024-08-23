@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxanotr24wrf6"]
+[gd_scene load_steps=14 format=3 uid="uid://dxanotr24wrf6"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_xkq87"]
 [ext_resource type="Texture2D" uid="uid://ce3yggudv31fv" path="res://Assets/sand_large.png" id="3_g4hby"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://df2qmcbom36xq" path="res://Assets/water_edge_long.png" id="14_kqfeq"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="14_ti4s4"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="15_ksqwx"]
+[ext_resource type="PackedScene" uid="uid://oo6j4c5xov24" path="res://Obstacles/powerup.tscn" id="24_q07gp"]
 
 [sub_resource type="Resource" id="Resource_edwxm"]
 script = ExtResource("15_ksqwx")
@@ -22,6 +23,7 @@ ease = 2
 script = ExtResource("1_xkq87")
 obstacle_scene = ExtResource("10_6u8qc")
 collectable_scene = ExtResource("3_kfcmu")
+powerup_scene = ExtResource("24_q07gp")
 
 [node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
 position = Vector2(0, -590)

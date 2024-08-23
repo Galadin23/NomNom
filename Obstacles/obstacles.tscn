@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://p2f4138bijmv" path="res://icon.svg" id="2_qydvf"]
 [ext_resource type="Texture2D" uid="uid://dr2hwqds03xw1" path="res://Assets/lillypad.png" id="3_mivqu"]
 [ext_resource type="Texture2D" uid="uid://bsc3q3mdq0lxe" path="res://Assets/rock-edge.png" id="3_nel0b"]
-[ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/Rock.png" id="6_im00e"]
-[ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/rock.png" id="6_mtlnq"]
+[ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/rock.png" id="6_gl8wr"]
+[ext_resource type="Texture2D" uid="uid://bw0ai1dx0606x" path="res://Assets/Rock.png" id="6_mtlnq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rcktw"]
 radius = 156.818
@@ -49,7 +49,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_im00e")]
+"values": [ExtResource("6_mtlnq")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,7 +166,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("6_mtlnq")]
+"values": [ExtResource("6_gl8wr")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
