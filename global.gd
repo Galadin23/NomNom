@@ -17,8 +17,8 @@ var game_data: Dictionary = {
 	"shield": 0,
 	"health": 0,
 	"energy": 0,
-	"coins":0
-	"gems": 0
+	"coins":0,
+	"gems": 0,
 	"obstacles": ["*","0"],
 	"powerups": ["m","s"],
 	"collectables": ["$","%"],

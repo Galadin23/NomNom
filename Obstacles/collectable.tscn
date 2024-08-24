@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cde3x5kpwdqa4"]
+[gd_scene load_steps=12 format=3 uid="uid://cde3x5kpwdqa4"]
 
 [ext_resource type="Script" path="res://Scripts/Collectables.gd" id="1_pwenr"]
 [ext_resource type="Texture2D" uid="uid://d336k4tx62nlg" path="res://Assets/Items/coin.png" id="2_8bhyd"]
+[ext_resource type="Texture2D" uid="uid://dcb6n7lnyuync" path="res://Assets/broccoli.png" id="3_qoitu"]
+[ext_resource type="Texture2D" uid="uid://di0ftwvy6miip" path="res://Assets/burger.png" id="4_djk2c"]
 
 [sub_resource type="Animation" id="Animation_qcs5k"]
 resource_name = "apple"
@@ -30,13 +32,49 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
+"values": [ExtResource("3_qoitu")]
+}
+
+[sub_resource type="Animation" id="Animation_t3p0s"]
+resource_name = "burger "
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Collectable:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_djk2c")]
+}
+
+[sub_resource type="Animation" id="Animation_hw00d"]
+resource_name = "coin"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Collectable:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
 "values": [ExtResource("2_8bhyd")]
 }
+
+[sub_resource type="Animation" id="Animation_5e05l"]
+resource_name = "gem"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fhcnc"]
 _data = {
 "apple": SubResource("Animation_qcs5k"),
-"broccoli": SubResource("Animation_p7ouf")
+"broccoli": SubResource("Animation_p7ouf"),
+"burger ": SubResource("Animation_t3p0s"),
+"coin": SubResource("Animation_hw00d"),
+"gem": SubResource("Animation_5e05l")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f37rs"]
